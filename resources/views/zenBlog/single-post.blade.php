@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>ZenBlog Bootstrap Template - Single Post</title>
+  <title>US Celebrities Blog - page title </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
@@ -47,7 +47,7 @@
       <a href="index.html" class="logo d-flex align-items-center">
         <!-- Uncomment the line below if you also wish to use an image logo -->
         <!-- <img src="assets/img/logo.png" alt=""> -->
-        <h1>ZenBlog</h1>
+        <h1>US Celebrities Blog</h1>
       </a>
 
       <nav id="navbar" class="navbar">
@@ -424,7 +424,7 @@
 
         <div class="row g-5">
           <div class="col-lg-4">
-            <h3 class="footer-heading">About ZenBlog</h3>
+            <h3 class="footer-heading">About US Celebrities Blog</h3>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ab, perspiciatis beatae autem deleniti voluptate nulla a dolores, exercitationem eveniet libero laudantium recusandae officiis qui aliquid blanditiis omnis quae. Explicabo?</p>
             <p><a href="about.html" class="footer-link-more">Learn More</a></p>
           </div>

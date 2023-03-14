@@ -313,3 +313,7 @@
         </div> <!-- End .row -->
     </div>
 </section><!-- End Lifestyle Category Section -->
+
+@push('category-js')
+    <script > console.log(' test js')</script>
+@endpush

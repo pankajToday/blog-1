@@ -47,6 +47,7 @@
 
   <!--- JS files  -->
   @include('zenBlog.layout.js')
+  @stack('category-js')
 
 </body>
 

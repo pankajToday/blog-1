@@ -17,3 +17,7 @@
 <link href="{{asset('zenBlog/css/variables.css')}}" rel="stylesheet">
 <link href="{{asset('zenBlog/css/main.css')}}" rel="stylesheet">
 
+
+<!--------------External mondiad--------->
+<script async src="https://ss.mndsrv.com/native.js"></script>
+<!----------------------->

@@ -14,6 +14,11 @@
                             <h3 class="m-0 p-0">Cameron Williamson</h3>
                         </div>
                     </div>
+
+                    {{--mondiad ads--}}
+                    <div id="mondiad-1" class="mondiad-c-1"><div data-mndazid="e235ebf2-446a-4523-be87-9a2dc461fb9a"></div></div>
+                    {{--mondiad ads--}}
+
                 </div>
 
                 <div id="lb-2" class="post-entry-1 lg">
@@ -28,6 +33,11 @@
                             <h3 class="m-0 p-0">Cameron Williamson</h3>
                         </div>
                     </div>
+
+                    {{--mondiad ads--}}
+                    <div id="mondiad-2" class="mondiad-c-2"><div data-mndazid="7a2a2436-443a-4126-84f8-8c124fa5550c"></div></div>
+                    {{--mondiad ads--}}
+
                 </div>
 
             </div>
@@ -69,6 +79,10 @@
                             <h2><a href="single-post.html">5 Great Startup Tips for Female Founders</a></h2>
                         </div>
                     </div>
+
+                    {{--mondiad ads--}}
+                    <div id="mondiad-3" class="mondiad-c-3"><div data-mndazid="f4ed238a-d043-487d-8ce9-8fedb5a2ce9f"></div></div>
+                  {{--mondiad ads--}}
 
                     <!-- Trending Section -->
                     <div id="center-block-3" class=" col-lg-4">

@@ -94,6 +94,11 @@
             </div>
         </div>
     </div>
+
+    {{--mondiad ads--}}
+    <div id="mondiad-4" class="mondiad-c-4"><div data-mndazid="ce9f2e6a-206d-40c6-b730-8cf83eabaf46"></div></div>
+    {{--mondiad ads--}}
+
 </section><!-- End Culture Category Section -->
 
 <!-- ======= Business Category Section ======= -->
@@ -191,6 +196,9 @@
             </div>
         </div>
     </div>
+    {{--mondiad ads--}}
+    <div id="mondiad-5" class="mondiad-c-5"><div data-mndazid="feb995ef-1dac-4bab-b75e-eb24bcab8efd"></div></div>
+    {{--mondiad ads--}}
 </section><!-- End Business Category Section -->
 
 <!-- ======= Lifestyle Category Section ======= -->
@@ -312,6 +320,9 @@
 
         </div> <!-- End .row -->
     </div>
+    {{--mondiad ads--}}
+    <div id="mondiad-6" class="mondiad-c-6"><div data-mndazid="ee616288-977d-4e27-9df8-4c87ffa39b7d"></div></div>
+    {{--mondiad ads--}}
 </section><!-- End Lifestyle Category Section -->
 
 @push('category-js')

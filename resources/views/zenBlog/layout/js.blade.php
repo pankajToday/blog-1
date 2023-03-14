@@ -7,3 +7,5 @@
 
 <!-- Template Main JS File -->
 <script src="{{asset('zenBlog/js/main.js')}}"></script>
+
+

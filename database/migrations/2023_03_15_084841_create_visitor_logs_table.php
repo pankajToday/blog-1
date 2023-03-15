@@ -14,12 +14,11 @@ return new class extends Migration
         Schema::create('visitor_logs', function (Blueprint $table) {
             $table->id();
             $table->ipAddress();
-            $table->string('country');
-            $table->string('city');
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
             $table->dateTime('visit_time');
-            $table->dateTime('out_time');
-            $table->string('visit_count_in_day');
-            $table->string('total_visit');
+            $table->dateTime('out_time')->nullable();
+            $table->integer('visit_count_in_day')->default(0);
             $table->timestamps();
         });
     }

@@ -19,6 +19,8 @@
   * Author: BootstrapMade.com
   * License: https:///bootstrapmade.com/license/
   ======================================================== -->
+
+  <script async src="https://ss.mndsrv.com/ctatic/71b1d0bf-bcfd-43aa-b366-f4e54eae5644.js"></script>
 </head>
 
 <body>

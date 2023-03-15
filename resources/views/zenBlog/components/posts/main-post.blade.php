@@ -2,6 +2,7 @@
     <div class="container" data-aos="fade-up">
         <div class="row g-5">
             {{--mondiad ads--}}
+            
             <div id="mondiad-1" class="mondiad-c-1"><div data-mndazid="e235ebf2-446a-4523-be87-9a2dc461fb9a"></div></div>
             {{--mondiad ads--}}
             <div id="left-block" class=" col-lg-4">

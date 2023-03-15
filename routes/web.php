@@ -13,7 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/visitor',[\App\Http\Controllers\VisitorLogController::class ,'storeVisitors']);
+Route::get('/visitor-show',[\App\Http\Controllers\VisitorLogController::class ,'visitorShow']);
 
- Route::get('/',[\App\Http\Controllers\PostController::class ,'index'])->name('post.all');
- Route::get('/post/{slug}',[\App\Http\Controllers\PostController::class ,'postView'])->name('post.view');
+Route::middleware(['visitor.log'])->group(function() {
+    Route::get('/',[\App\Http\Controllers\PostController::class ,'index'])->name('post.all');
+    Route::get('/post/{slug}',[\App\Http\Controllers\PostController::class ,'postView'])->name('post.view');
+});
+
+
+
 

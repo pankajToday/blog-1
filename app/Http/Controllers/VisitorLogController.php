@@ -40,6 +40,7 @@ class VisitorLogController extends Controller
         foreach ( collect($visitorList)->count()? $visitorList:[] as $item )
         {
             $dataSet[]=[
+                'domian' => $item->domain ,
                 'visitor_ip' => $item->ip_address ,
                 'visit_country' => $item->country ,
                 'visit_city' => $item->city ,
@@ -49,7 +50,8 @@ class VisitorLogController extends Controller
         }
 
         return response()->json(['status'=>200,'total_visitors'=>$totalVisitors,'common_ip_count'=>$commonIPCount,
-            'common_ips'=>$commonIP, 'data'=>$dataSet]);
+            'common_ips'=>$commonIP, 'data'=>$dataSet,
+            'domain_lsit' => collect($visitorList)->groupBy('domain') ]);
     }
 
 

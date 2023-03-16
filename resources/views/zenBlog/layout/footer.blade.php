@@ -51,7 +51,7 @@
 
                         <li>
                             <a href="single-post.html" class="d-flex align-items-center">
-                                <img src="zenBlog/img/post-sq-2.jpg')}}" alt="img-3" class="img-fluid me-3">
+                                <img src="{{asset('zenBlog/img/post-sq-2.jpg')}}" alt="img-3" class="img-fluid me-3">
                                 <div>
                                     <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
                                     <span>What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</span>

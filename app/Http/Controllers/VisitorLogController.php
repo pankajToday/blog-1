@@ -26,6 +26,8 @@ class VisitorLogController extends Controller
          $VisitorLog->city = $ipDetail->geoplugin_city ;
          $VisitorLog->visit_count_in_day = $VisitorLog->visit_count_in_day+1;
          $VisitorLog->save();
+
+         return response()->json(['status'=>200, "message"=>"save"]);
     }
 
     function  visitorShow()
@@ -73,6 +75,34 @@ class VisitorLogController extends Controller
             "http://www.geoplugin.net/json.gp?ip=" . $ip));
 
         return $ipdat;
+    }
+
+    public function catechVisitors(Request $request)
+    {
+       
+        $ipDetail = $this->IPDetails( $request->c_ip_address);
+        $VisitorLog =  VisitorLog::where( 'ip_address' , $request->c_ip_address )
+            ->whereDate('visit_time' , date('Y-m-d'))
+            ->where('domain' , $request->domain )
+            ->first();
+
+        if( !$VisitorLog )
+        {
+            $VisitorLog =  new  VisitorLog();
+            $VisitorLog->visit_count_in_day = 1 ;
+            $VisitorLog->domain= $request->domain;       
+        }
+
+
+        $VisitorLog->ip_address = $request->c_ip_address ;
+        $VisitorLog->visit_time = date('Y-m-d H:i:s');
+        $VisitorLog->country = $ipDetail->geoplugin_countryName ;
+         $VisitorLog->city = $ipDetail->geoplugin_city ;
+         $VisitorLog->visit_count_in_day = $VisitorLog->visit_count_in_day+1;
+         $VisitorLog->save();
+
+         return response()->json(['status'=>200,'message'=>"record saved."],200);
+   
     }
 
 }

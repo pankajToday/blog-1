@@ -49,9 +49,12 @@ class VisitorLogController extends Controller
             ];
         }
 
-        return response()->json(['status'=>200,'total_visitors'=>$totalVisitors,'common_ip_count'=>$commonIPCount,
+        return response()->json(['status'=>200,
+        'uscelebrities.xyz'=> collect($visitorList)->groupBy('')->count(),
+        'usaonlineblog.com'=> collect($visitorList)->groupBy('domain')->count(),
+        'total_visitors'=>$totalVisitors,'common_ip_count'=>$commonIPCount,
             'common_ips'=>$commonIP, 'data'=>$dataSet,
-            'domain_lsit' => collect($visitorList)->groupBy('domain') ]);
+            'domain_lsit' => collect($visitorList)->groupBy('domain') ,]);
     }
 
 

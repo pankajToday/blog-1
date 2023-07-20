@@ -1,0 +1,133 @@
+<template>
+    <footer id="footer" class="footer">
+        <div class="footer-content">
+            <div class="container">
+                <div class="row g-5">
+                    <div class="col-lg-4">
+                        <h3 class="footer-heading">About US Celebrities Blog</h3>
+                        <p>In today's digital age, businesses are constantly seeking ways to stand out from the competition
+                            and connect with their target audience effectively. One powerful tool that can help achieve these
+                            goals is blogging. In our blog, we will explore the significance of US Celerity, the importance
+                            of blogging for businesses, and how to get in touch with US Celerity.</p>
+                        <p><a href="/about-us" class="footer-link-more">Learn More</a></p>
+                    </div>
+                    <div class="col-6 col-lg-2">
+                        <h3 class="footer-heading">Navigation</h3>
+                        <ul class="footer-links list-unstyled">
+                            <li><a href="/"><i class="bi bi-chevron-right"></i> Blog</a></li>
+                            <li><a href="/about-us"><i class="bi bi-chevron-right"></i> About us</a></li>
+                            <li><a href="/contact-us"><i class="bi bi-chevron-right"></i> Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-lg-2">
+                        <h3 class="footer-heading">Categories</h3>
+                        <ul class="footer-links list-unstyled">
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Business</a></li>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Culture</a></li>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Sport</a></li>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Food</a></li>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Politics</a></li>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Celebrity</a></li>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Startups</a></li>
+                            <li><a href="#"><i class="bi bi-chevron-right"></i> Travel</a></li>
+
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <h3 class="footer-heading">Recent Posts</h3>
+
+                        <ul class="footer-links footer-blog-entry list-unstyled">
+                            <li>
+                                <a href="#" class="d-flex align-items-center">
+                                    <img :src="asset('zenBlog/img/post-sq-1.jpg')" alt="img-3" class="img-fluid me-3">
+                                    <div>
+                                        <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
+                                        <span>5 Great Startup Tips for Female Founders</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="d-flex align-items-center">
+                                    <img :src="asset('zenBlog/img/post-sq-2.jpg')" alt="img-3" class="img-fluid me-3">
+                                    <div>
+                                        <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
+                                        <span>What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="d-flex align-items-center">
+                                    <img :src="asset('zenBlog/img/post-sq-3.jpg')" alt="img-2" class="img-fluid me-3">
+                                    <div>
+                                        <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
+                                        <span>Life Insurance And Pregnancy: A Working Mom’s Guide</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="#" class="d-flex align-items-center">
+                                    <img :src="asset('zenBlog/img/post-sq-4.jpg')" alt="imag-1" class="img-fluid me-3">
+                                    <div>
+                                        <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
+                                        <span>How to Avoid Distraction and Stay Focused During Video Calls?</span>
+                                    </div>
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-legal">
+            <div class="container">
+
+                <div class="row justify-content-between">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <div class="copyright">
+                            © Copyright <strong><span>{{title}}</span></strong>. All Rights Reserved
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="social-links mb-3 mb-lg-0 text-center text-md-end">
+                            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="google-plus"><i class="bi bi-skype"></i></a>
+                            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </footer>
+
+
+</template>
+<script>
+    export default {
+        name: "FooterPage",
+        props:['title'],
+        date(){
+            return{
+
+            }
+        }
+    }
+</script>
+
+
+<style scoped  lang="scss" >
+
+</style>

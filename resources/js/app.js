@@ -8,6 +8,7 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import Vapor from 'laravel-vapor';
 import {VaporAssetsMixin} from "./Mixins/VaporAssetsMixin.js";
 
+
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'My Blog';
 Vapor.withBaseAssetUrl(import.meta.env.VITE_VAPOR_ASSET_URL)
 

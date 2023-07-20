@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>@yield('title','United State Celebrities')</title>
+  <title>Laravel Blog 1.0</title>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 

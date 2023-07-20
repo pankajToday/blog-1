@@ -1,24 +1,35 @@
 <template>
-    <h1 class="text-3xl font-bold underline">
-        Hello world! hi
-    </h1>
+     <HeadTag  />
+     <HeaderNav :title="headerTitle" />
+     <TopSlider />
+     <MainPostSection />
+     <FooterSection :title="headerTitle"/>
 
-     <img class="h-8 w-24" :src="asset('project-assets/img/bg-masthead.jpg')">
+
+     <!--<img class="w-[100%] h-[50%]" :src="asset('project-assets/img/bg-masthead.jpg')">-->
 </template>
-<script>
 
-    import Swal from 'sweetalert2'
+<script>
+    import Swal from 'sweetalert2';
+    import  HeadTag from './website/Main/Component/Head.vue';
+    import  HeaderNav from './website/Main/Component/Header.vue';
+    import  TopSlider from './website/Main/Component/TopSliderSection.vue';
+    import  MainPostSection from './website/Main/Component/MainPost.vue';
+    import  CategoryPostSection from './website/Main/Component/CategoryPost.vue';
+    import  FooterSection from './website/Main/Component/Footer.vue';
+
     export default {
         name: "MainPage",
-        components: { },
-        props:[],
+        components: {HeadTag ,HeaderNav,TopSlider,MainPostSection,CategoryPostSection,FooterSection },
+        props:['title'],
         data(){
             return{
                // authUser:this.$page.props.auth.user,
-
+                headerTitle :'US Celebrities',
             }
         },
         methods:{
+
             update(item){
                 axios.post('/api/subscription-update/',this.plan).then(response => {
                     if (response.status === 200) {
@@ -86,64 +97,7 @@
     }
 </script>
 
+
 <style scoped>
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 36px;
-        height: 18px;
-    }
 
-    .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 15px;
-        width: 15px;
-        left: 4px;
-        bottom: 1.7px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    input:checked + .slider {
-        background-color: #0075FF;
-    }
-
-    input:focus + .slider {
-        box-shadow: 0 0 1px #0075FF;
-    }
-
-    input:checked + .slider:before {
-        -webkit-transform: translateX(24px);
-        -ms-transform: translateX(15px);
-        transform: translateX(15px);
-    }
-
-    /* Rounded sliders */
-    .slider.round {
-        border-radius: 34px;
-    }
-
-    .slider.round:before {
-        border-radius: 50%;
-    }
 </style>

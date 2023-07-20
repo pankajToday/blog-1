@@ -17,10 +17,18 @@ Route::get('/visitor',[\App\Http\Controllers\VisitorLogController::class ,'store
 Route::get('/visitor-show',[\App\Http\Controllers\VisitorLogController::class ,'visitorShow']);
 
 Route::middleware(['visitor.log'])->group(function() {
-    Route::get('/',[\App\Http\Controllers\PostController::class ,'index'])->name('post.all');
+    Route::get('/',[\App\Http\Controllers\HomeController::class ,'mainPage'])->name('post.all');
     Route::get('/post/{slug}',[\App\Http\Controllers\PostController::class ,'postView'])->name('post.view');
 });
 
 
 
 
+Route::get('/admin',[\App\Http\Controllers\AdminController::class ,'loginShowFrm']);
+Route::get('/contact-us',[\App\Http\Controllers\HomeController::class ,'contactUs']);
+Route::get('/about-us',[\App\Http\Controllers\HomeController::class ,'aboutUs']);
+
+
+Route::middleware('auth:sanctum')->group( function () {
+   // add your routes.
+});

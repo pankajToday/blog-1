@@ -10,8 +10,8 @@
         <nav id="navbar" class="navbar">
             <ul>
                 <li><a href="{{route('post.all')}}">Blog</a></li>
-                <li><a href="{{route('post.view',1)}}">Single Post</a></li>
-                <li class="dropdown"><a href="category.html"><span>Categories</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                {{--<li><a href="{{route('post.view',1)}}">Single Post</a></li>--}}
+                {{--<li class="dropdown"><a href="category.html"><span>Categories</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
                     <ul>
                         <li><a href="search-result.html">Search Result</a></li>
                         <li><a href="#">Drop Down 1</a></li>
@@ -28,10 +28,10 @@
                         <li><a href="#">Drop Down 3</a></li>
                         <li><a href="#">Drop Down 4</a></li>
                     </ul>
-                </li>
+                </li>--}}
 
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact</a></li>
+                <li><a href="/about-us">About</a></li>
+                <li><a href="/contact-us">Contact</a></li>
             </ul>
         </nav><!-- .navbar -->
 
@@ -45,7 +45,7 @@
 
             <!-- ======= Search Form ======= -->
             <div class="search-form-wrap js-search-form-wrap">
-                <form action="search-result.html" class="search-form">
+                <form action="#" class="search-form">
                     <span class="icon bi-search"></span>
                     <input type="text" placeholder="Search" class="form-control">
                     <button class="btn js-search-close"><span class="bi-x"></span></button>

@@ -13,14 +13,26 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->bigInteger('role_id')->unsigned();
+            $table->bigInteger('uid')->unsigned();
+            $table->string('first_name');
+            $table->string('last_name');
             $table->string('email',80)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('mobile');
+            $table->string('address')->nullable();
+            $table->string('user_img')->nullable()->default('https://www.pngitem.com/pimgs/m/581-5813504_avatar-dummy-png-transparent-png.png');
             $table->boolean('status');
+            $table->dateTime('last_login')->nullable();
+            $table->ipAddress()->nullable();
+            $table->boolean('is_social_login')->default(0)->nullable();
+            $table->string('social')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('role_id')->on('roles')->references('id')->cascadeOnDelete();
         });
     }
 

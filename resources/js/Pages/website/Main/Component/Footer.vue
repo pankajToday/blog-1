@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="row g-5">
                     <div class="col-lg-4">
-                        <h3 class="footer-heading">About US Celebrities Blog</h3>
+                        <h3 class="footer-heading">About US Celebrities Blog  </h3>
                         <p>In today's digital age, businesses are constantly seeking ways to stand out from the competition
                             and connect with their target audience effectively. One powerful tool that can help achieve these
                             goals is blogging. In our blog, we will explore the significance of US Celerity, the importance
@@ -19,65 +19,31 @@
                             <li><a href="/contact-us"><i class="bi bi-chevron-right"></i> Contact</a></li>
                         </ul>
                     </div>
-                    <div class="col-6 col-lg-2">
+                    <div v-if="categoryList && categoryList.length" class="col-6 col-lg-2">
                         <h3 class="footer-heading">Categories</h3>
                         <ul class="footer-links list-unstyled">
-                            <li><a href="#"><i class="bi bi-chevron-right"></i> Business</a></li>
-                            <li><a href="#"><i class="bi bi-chevron-right"></i> Culture</a></li>
-                            <li><a href="#"><i class="bi bi-chevron-right"></i> Sport</a></li>
-                            <li><a href="#"><i class="bi bi-chevron-right"></i> Food</a></li>
-                            <li><a href="#"><i class="bi bi-chevron-right"></i> Politics</a></li>
-                            <li><a href="#"><i class="bi bi-chevron-right"></i> Celebrity</a></li>
-                            <li><a href="#"><i class="bi bi-chevron-right"></i> Startups</a></li>
-                            <li><a href="#"><i class="bi bi-chevron-right"></i> Travel</a></li>
-
+                            <li v-for="(category ) in categoryList">
+                                <a href="#"><i class="bi bi-chevron-right"></i> {{category.name}}</a>
+                            </li>
                         </ul>
                     </div>
 
                     <div class="col-lg-4">
                         <h3 class="footer-heading">Recent Posts</h3>
 
-                        <ul class="footer-links footer-blog-entry list-unstyled">
-                            <li>
-                                <a href="#" class="d-flex align-items-center">
-                                    <img :src="asset('zenBlog/img/post-sq-1.jpg')" alt="img-3" class="img-fluid me-3">
+                        <ul v-if="!loading" class="footer-links footer-blog-entry list-unstyled">
+                            <li  v-for="(recentPost ,indexR ) in recentPostList.data" >
+                                <a :href="'/post/'+recentPost.seo_url" class="d-flex align-items-center">
+                                    <img :src="recentPost.post_image?recentPost.post_image:asset('zenBlog/img/post-sq-1.jpg')" :alt="'img-'+(indexR+1)" class="img-fluid me-3">
                                     <div>
-                                        <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                                        <span>5 Great Startup Tips for Female Founders</span>
+                                        <div class="post-meta d-block">
+                                            <span class="date">{{recentPost.category_name}}</span>
+                                            <span class="mx-1">&bullet;</span>
+                                            <span>{{recentPost.posted_at}}</span></div>
+                                        <span>{{recentPost.posted_by}}</span>
                                     </div>
                                 </a>
                             </li>
-
-                            <li>
-                                <a href="#" class="d-flex align-items-center">
-                                    <img :src="asset('zenBlog/img/post-sq-2.jpg')" alt="img-3" class="img-fluid me-3">
-                                    <div>
-                                        <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                                        <span>What is the son of Football Coach John Gruden, Deuce Gruden doing Now?</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="d-flex align-items-center">
-                                    <img :src="asset('zenBlog/img/post-sq-3.jpg')" alt="img-2" class="img-fluid me-3">
-                                    <div>
-                                        <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                                        <span>Life Insurance And Pregnancy: A Working Mom’s Guide</span>
-                                    </div>
-                                </a>
-                            </li>
-
-                            <li>
-                                <a href="#" class="d-flex align-items-center">
-                                    <img :src="asset('zenBlog/img/post-sq-4.jpg')" alt="imag-1" class="img-fluid me-3">
-                                    <div>
-                                        <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                                        <span>How to Avoid Distraction and Stay Focused During Video Calls?</span>
-                                    </div>
-                                </a>
-                            </li>
-
                         </ul>
 
                     </div>
@@ -117,13 +83,45 @@
 </template>
 <script>
     export default {
-        name: "FooterPage",
-        props:['title'],
-        date(){
-            return{
+        name: "FooterPage2",
+        components: { },
+        data: () => ({
+            loading:false,
+            categoryList:[],
+            recentPostList:[],
+        }),
+        methods:{
+            fetchRecentPost(){
+                this.loading =true;
+                const payload ={}
+                axios.post('/api/home/recent-post', payload).then(response => {
+                    if(response.status === 200) {
+                        this.recentPostList = response.data;
+                        this.loading =false;
+                        console.log(this.recentPostList)
+                    }
+                }).catch((e)=>{
+                    this.loading =false;
+                    console.log('Recent Post Issue ',e.response.data)
+                })
+            },
+            fetchCategory(){
+                const payload ={}
+                axios.post('/api/home/category-list', payload).then(response => {
+                    if(response.status === 200) {
+                        this.categoryList = response.data; console.log(this.categoryList)
+                    }
+                }).catch((e)=>{
+                    console.log('Categories Issue ',e.response.data)
+                })
+            },
 
-            }
+        },
+        created(){
+            this.fetchRecentPost();
+            this.fetchCategory();
         }
+
     }
 </script>
 

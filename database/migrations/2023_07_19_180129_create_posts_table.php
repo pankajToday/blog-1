@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('post_url')->nullable();
             $table->longText('article_content');
             $table->boolean('status')->default(1);
+            $table->bigInteger('posted_by')->unsigned()->nullable();
             $table->enum('publish_status',['published','draft','unpublished','scheduled']);
             $table->dateTime('published_at');
             $table->bigInteger('published_by')->unsigned()->nullable();
@@ -35,6 +36,7 @@ return new class extends Migration
             $table->foreign('category_id')->on('categories')->references('id')->cascadeOnDelete();
             $table->foreign('published_by')->on('users')->references('id')->cascadeOnDelete();
             $table->foreign('updated_by')->on('users')->references('id')->cascadeOnDelete();
+            $table->foreign('posted_by')->on('users')->references('id')->cascadeOnDelete();
         });
     }
 

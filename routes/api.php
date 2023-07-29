@@ -33,5 +33,10 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 // Home page API
+Route::group(['prefix' => 'home'],function ($q){
+    Route::post('/slider-post' , [\App\Http\Controllers\MainPageController::class ,'fetchSliderPost'])->name('main.slider-post');
+    Route::post('/post/left-side/{limit}' , [\App\Http\Controllers\MainPageController::class ,'fetchLeftSidePost'])->name('main.left-side-post');
+    Route::post('/category-list',[\App\Http\Controllers\MainPageController::class ,'categoryList']);
+    Route::post('/recent-post',[\App\Http\Controllers\MainPageController::class ,'recentPost']);
+});
 
-Route::get('/post/left-block/{random}' , [\App\Http\Controllers\MainPageController::class ,'fetchLeftBlockPost'])->name('main.leftBlockPost');

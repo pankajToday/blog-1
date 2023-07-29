@@ -25,6 +25,10 @@ class Post extends Model
         return $this->belongsTo(User::class,'published_by','id');
     }
 
+    function postedByUser(){
+        return $this->belongsTo(User::class,'posted_by','id');
+    }
+
     function postTags(){
         return $this->belongsToMany(Tag::class , 'post_tag','post_id' ,'tag_id')
             ->orderBy('post_id','asc');

@@ -21,6 +21,7 @@
         "@vitejs/plugin-vue": "^4.2.3",
         "laravel-vapor": "^0.6.0",
         "sweetalert2": "^11.7.18",
-        "vue": "^3.3.4"
+        "vue": "^3.3.4",
+        "vue3-carousel": "^0.3.1"
     }
 }

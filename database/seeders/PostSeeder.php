@@ -22,9 +22,27 @@ class PostSeeder extends Seeder
     {
       $faker =  Faker::create();
 
+        $postImages =[
+            '/project-assets/images/website/post-images/mockup-5281992_1280.jpg',
+            '/project-assets/images/website/post-images/pxfuel (1).jpg',
+            '/project-assets/images/website/post-images/pxfuel (2).jpg',
+            '/project-assets/images/website/post-images/pxfuel (3).jpg',
+            '/project-assets/images/website/post-images/pxfuel (4).jpg',
+            '/project-assets/images/website/post-images/pxfuel (5).jpg',
+            '/project-assets/images/website/post-images/pxfuel (6).jpg',
+            '/project-assets/images/website/post-images/pxfuel (7).jpg',
+            '/project-assets/images/website/post-images/pxfuel.com (1).jpg',
+            '/project-assets/images/website/post-images/pxfuel.com (2).jpg',
+            '/project-assets/images/website/post-images/pxfuel.com.jpg',
+            '/project-assets/images/website/post-images/pxfuel.com-1.jpg',
+            '/project-assets/images/website/post-images/pxfuel.jpg',
+            '/project-assets/images/website/post-images/web-development-gc6cac02ea_640.png',
+        ];
+
+
         try{
             DB::beginTransaction();
-            for ($i=1; $i<=10; $i++ )
+            for ($i=1; $i<=50; $i++ )
             {
                 $postData=[
                     'category_id' => 1 ,
@@ -35,10 +53,13 @@ class PostSeeder extends Seeder
                     'seo_url' => Str::slug( $faker->realText(50) ) ,
                     'post_url' => Str::slug( $faker->realText(50) ) ,
                     'article_content' => $faker->realText(10000,5) ,
+                    'post_image' =>$postImages[rand(0,13)],
+                    'feature_image' =>$postImages[rand(0,13)],
                     'status' => 1 ,
                     'publish_status' => 'published' ,
                     'published_at' => date('Y-m-d H:i') ,
                     'published_by' => 1 ,
+                    'posted_by' => 1 ,
                     'updated_by' =>1
                 ];
 

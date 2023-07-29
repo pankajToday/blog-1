@@ -43,6 +43,13 @@ return [
             'visibility' => 'public',
             'throw' => false,
         ],
+        'myStorage' => [
+            'driver' => 'local',
+            'root' => storage_path('project-assets/images/website/'),
+            'url' => env('APP_URL').'/storage',
+            'visibility' => 'private',
+            'throw' => false,
+        ],
 
         's3' => [
             'driver' => 's3',

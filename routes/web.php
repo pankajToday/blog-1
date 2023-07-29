@@ -21,7 +21,9 @@ Route::middleware(['visitor.log'])->group(function() {
     Route::get('/post/{slug}',[\App\Http\Controllers\PostController::class ,'postView'])->name('post.view');
 });
 
-
+Route::middleware('auth:sanctum')->group( function () {
+    // add your routes.
+});
 
 
 Route::get('/admin',[\App\Http\Controllers\AdminController::class ,'loginShowFrm']);
@@ -29,6 +31,6 @@ Route::get('/contact-us',[\App\Http\Controllers\HomeController::class ,'contactU
 Route::get('/about-us',[\App\Http\Controllers\HomeController::class ,'aboutUs']);
 
 
-Route::middleware('auth:sanctum')->group( function () {
-   // add your routes.
-});
+
+// Blog Post
+Route::post('/post/{id}' , [\App\Http\Controllers\MainPageController::class ,'viewPost'])->name('main.view-post');

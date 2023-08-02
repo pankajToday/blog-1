@@ -1,5 +1,3 @@
-
-
 <template>
     <Head :title="pageTitle" />
 
@@ -37,13 +35,13 @@
         created(){
 
             this.appendScriptFile('https://ss.mndsrv.com/native.js');
-            this.addCssFiles('zenBlog/vendor/bootstrap/css/bootstrap.min.css');
-            this.addCssFiles('zenBlog/vendor/bootstrap-icons/bootstrap-icons.css');
-            this.addCssFiles('zenBlog/vendor/swiper/swiper-bundle.min.css');
-            this.addCssFiles('zenBlog/vendor/glightbox/css/glightbox.min.css');
-            this.addCssFiles('zenBlog/vendor/aos/aos.css');
-            this.addCssFiles('zenBlog/css/variables.css');
-            this.addCssFiles('zenBlog/css/main.css');
+            this.addCssFiles('/zenBlog/vendor/bootstrap/css/bootstrap.min.css');
+            this.addCssFiles('/zenBlog/vendor/bootstrap-icons/bootstrap-icons.css');
+            this.addCssFiles('/zenBlog/vendor/swiper/swiper-bundle.min.css');
+            this.addCssFiles('/zenBlog/vendor/glightbox/css/glightbox.min.css');
+            this.addCssFiles('/zenBlog/vendor/aos/aos.css');
+            this.addCssFiles('/zenBlog/css/variables.css');
+            this.addCssFiles('/zenBlog/css/main.css');
 
         }
     }

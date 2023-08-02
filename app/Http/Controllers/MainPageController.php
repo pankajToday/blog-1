@@ -79,6 +79,19 @@ class MainPageController extends Controller
         return HomeSectionPostResource::collection( $recentPosts );
     }
 
+    function fetchPostByCategory($name , Request $request ){
+        $categoryPosts =  Post::where('status',1)
+            ->whereHas('',function ($q) use($name){
+                $q->where('name','like','%'.$name.'%');
+            })
+            ->where('publish_status','published')
+            ->orderBy('id','desc')
+            ->orderBy('created_at','desc')
+            ->paginate($request->l?$request->l:10);
+
+        return HomeSectionPostResource::collection( $categoryPosts );
+    }
+
 
 
 

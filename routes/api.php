@@ -23,14 +23,8 @@ Route::middleware('auth:sanctum')->group( function () {
 });
 
 Route::get('/visitor-catch',[\App\Http\Controllers\VisitorLogController::class ,'catechVisitors']);
-
-
-Route::post('login' , [\App\Http\Controllers\AdminController::class ,'login'])->name('login');
 Route::post('/contact-us',[\App\Http\Controllers\HomeController::class ,'contactPost']);
-
-Route::group(['middleware' => 'auth'], function () {
-    Route::post('home' , [\App\Http\Controllers\AdminController::class ,'login'])->name('admin-home');
-});
+Route::post('login' , [\App\Http\Controllers\AuthController::class ,'login']);
 
 // Home page API
 Route::group(['prefix' => 'home'],function ($q){
@@ -38,5 +32,7 @@ Route::group(['prefix' => 'home'],function ($q){
     Route::post('/post/left-side/{limit}' , [\App\Http\Controllers\MainPageController::class ,'fetchLeftSidePost'])->name('main.left-side-post');
     Route::post('/category-list',[\App\Http\Controllers\MainPageController::class ,'categoryList']);
     Route::post('/recent-post',[\App\Http\Controllers\MainPageController::class ,'recentPost']);
+    Route::post('/category/{name}',[\App\Http\Controllers\MainPageController::class ,'fetchPostByCategory']);
+
 });
 

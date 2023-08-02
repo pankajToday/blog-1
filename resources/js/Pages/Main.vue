@@ -28,69 +28,7 @@
                 headerTitle :'US Celebrities',
             }
         },
-        methods:{
-
-            update(item){
-                axios.post('/api/subscription-update/',this.plan).then(response => {
-                    if (response.status === 200) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: 'Plan updated successfully!',
-                            // showConfirmButton: false,
-                            timer: 1500
-                        });
-                        this.$inertia.get('subscription-list');
-                    }
-                }).catch((error) => {
-                    if (error.response.status === 500) {
-                        Swal.fire(
-                            'Oops!',
-                            'Unable To update Plan!'
-                        )
-                    }
-                    console.log(error.response.data.errors)
-                    if (error.response.status === 422) {
-                        this.errors = error.response.data.errors;
-                    }
-                })
-            },
-            destroy (id) {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        axios.post('/api/subscription-delete/'+id).then(response => {
-                            if (response.status === 200) {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: 'Plan Deleted successfully!',
-                                    showConfirmButton: false,
-                                    timer: 1500
-                                });
-                                this.$inertia.get('subscription-list');
-                            }
-                        }).catch((error) => {
-                            if (error.response.status === 500) {
-                                Swal.fire(
-                                    'Oops!',
-                                    'Unable To Delete Plan!'
-                                )
-                            }
-                        })
-                    }
-                });
-
-            },
-
-
-        },
+        methods:{},
         created(){
             //console.log(this.authUser)
         }

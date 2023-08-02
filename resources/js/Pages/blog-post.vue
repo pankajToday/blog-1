@@ -1,36 +1,6 @@
 <template>
-    <div class="relative bg-ruby-25">
-        <p class="px-4 text-base font-semibold text-ruby-700 w-full sm:text-center py-3.5 border-b border-ruby-100">We’ve just launched a new feature! <span class="font-normal text-base text-ruby-600 block sm:inline" >Check out the <a href="#" class="underline">new dashboard</a> .</span></p>   
-        <button class="w-2.5 h-2.5 bg-no-repeat bg-contain absolute top-6 right-3" style="background-image: url(project-assets/images/website/icons/cut-icon.png);"></button>
-    </div>
-    <header class="w-full md:py-6 py-5 bg-ruby-50 border-b border-[#F2F4F7] font-inter">
-        <div class="container">
-            <div class="flex justify-between items-center">
-                <div class="flex items-center">
-                    <a href="#" class="bg-no-repeat bg-contain w-[142px] h-8 md:w-36 md:h-9.5 lg:mr-10 md:mr-8 block" style="background-image: url(project-assets/images/website/logo/nits-logo.png);"></a>
-                    <div class="hidden md:flex">
-                        <a class="text-base text-ruby-600 hover:text-pearl-600 font-semibold lg:mr-8 md:mr-4" href="#">Home</a>
-                        <a href="#" class="flex items-center text-ruby-600 hover:text-pearl-600 lg:mr-8 md:mr-4">
-                            <span class="text-base  font-semibold">Products</span>
-                            <span class="material-symbols-outlined">expand_more</span>
-                        </a>
-                        <a href="#" class="flex items-center text-ruby-600 hover:text-pearl-600 lg:mr-8 md:mr-4">
-                            <span class="text-base font-semibold">Resources</span>
-                            <span class="material-symbols-outlined">expand_more</span>
-                        </a>
-                        <a class="text-base text-ruby-600 hover:text-pearl-600 font-semibold lg:mr-8 md:mr-4" href="#">Pricing</a>
-                    </div>
-                </div>
-                <div class="md:flex hidden items-center gap-3">
-                    <a class="text-base font-semibold py-2.5 px-[18px] rounded-lg text-ruby-600 hover:bg-gray-100" href="#">Log in</a>
-                    <a class="text-base text-white bg-pearl-600 font-semibold py-2.5 px-[18px] rounded-lg" href="#">Sign up</a>
-                </div>
-                <button class="p-2 rounded text-ruby-700 md:hidden">
-                    <span class="material-symbols-outlined">menu</span>
-                </button>
-            </div>
-        </div>
-    </header>
+
+
     <main>
         <section>
             <div class="md:flex items-center justify-between">

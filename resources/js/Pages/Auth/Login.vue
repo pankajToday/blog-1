@@ -5,7 +5,7 @@
                 <div class="w-[360px] mx-auto py-20">
                     <div class="w-full flex  items-center px-4">
                         <div class="w-full flex items-center">
-                            <img class="m-auto w-40 h-auto object-contain" :src="asset('project-assets/images/NitsEditorLogo.png')">
+                            <!--<img class="m-auto w-40 h-auto object-contain" :src="asset('project-assets/images/NitsEditorLogo.png')">-->
                         </div>
 <!--                        <div class="text-[20px] font-semibold text-gray-900 ml-2">NITSEDITOR</div>-->
                     </div>
@@ -17,10 +17,12 @@
                         <div class="w-full">
                             <label class="text-sm font-medium text-gray">Email</label>
                             <input v-model="form.email" type="email" class="rounded-md px-4 py-2 focus:outline-none mt-1 w-full border border-gray-400 text-base font-normal text-gray placeholder-[#667085]" placeholder="Enter your email">
+                            <span v-if="errors && errors.email && errors.email[0]" class="text-red-500 text-small ">{{errors.email[0]}}</span>
                         </div>
                         <div class="w-full mt-4">
                             <label class="text-sm font-medium text-gray">Password</label>
                             <input v-model="form.password" type="password" class="rounded-md px-4 py-2 focus:outline-none mt-1 w-full border border-gray-400 text-base font-normal text-gray placeholder-[#667085]" placeholder="Enter your password">
+                            <span v-if="errors && errors.password && errors.password[0]" class="text-red-500 text-small ">{{errors.password[0]}}</span>
                         </div>
                         <div class="w-full flex items-center justify-between mt-2.5">
                             <div class="flex items-center">
@@ -35,15 +37,15 @@
                     <div class="text-gray-600 text-sm font-normal text-center mt-5">Don’t have an account? <span><a href="/sign-up" class="text-primary font-semibold">Sign up</a></span></div>
                 </div>
                 <div class="w-full mt-auto h-12 flex items-center px-8 mt-4">
-                    <div class="text-sm text-gray-600">© -- App 2023</div>
+                    <div class="hidden text-sm text-gray-600">© -- App 2023</div>
                 </div>
             </div>
             <div class="w-full bg-cover bg-no-repeat h-full flex items-center relative" style="background: linear-gradient(45deg, #42307D 0%, #7F56D9 100%);">
-                <img class="absolute top-[-20px] right-0 z-20" :src="asset('project-assets/images/Line-pattern-up.png')">
-                <img class="absolute bottom-[-328px] left-0 z-20" :src="asset('project-assets/images/Line-pattern-up.png')">
+                <!--<img class="absolute top-[-20px] right-0 z-20" :src="asset('project-assets/images/Line-pattern-up.png')">
+                <img class="absolute bottom-[-328px] left-0 z-20" :src="asset('project-assets/images/Line-pattern-up.png')">-->
                 <div class="w-[520px] m-auto z-50">
                     <div class="">
-                        <img class="" :src="asset('project-assets/images/login-slider.png')">
+                        <!--<img class="" :src="asset('project-assets/images/login-slider.png')">-->
                     </div>
                     <div class="mt-12 w-full">
                         <div class="text-xl font-medium text-white text-center">Welcome to your new dashboard</div>
@@ -89,7 +91,7 @@
         <div v-if="forgetPass" class="w-full flex">
             <div class="mx-auto max-w-4xl">
                 <div class="w-full flex justify-center items-center " style="padding-top: 66px">
-                    <img class="object-contain w-[56px] h-[56px]" :src="asset('project-assets/images/icon/forget-pass.png')">
+                    <!--<img class="object-contain w-[56px] h-[56px]" :src="asset('project-assets/images/icon/forget-pass.png')">-->
                 </div>
                 <div class="mt-8 w-full">
                     <div class="font-semibold text-center" style="font-size: 30px">Forgot password?</div>
@@ -98,6 +100,7 @@
                 <div class="w-full mt-4">
                     <label class="text-sm font-medium text-gray">Email*</label>
                     <input type="email" class="rounded-md px-4 py-2 focus:outline-none mt-1 w-full border border-gray-400 text-base font-normal text-gray placeholder-[#667085]" placeholder="Enter your email">
+                    <span v-if="errors && errors.email && errors.email[0]" class="text-red-500 text-small ">{{errors.email[0]}}</span>
                 </div>
                 <button class="w-full rounded-md bg-primary text-white text-base font-semibold px-4 py-2 mt-5 focus:outline-none">Reset Password</button>
                 <div @click.prevent="loginPage = true ; forgetPass = false" class="flex justify-center items-center mt-4 cursor-pointer">
@@ -118,28 +121,47 @@
 </style>
 
 <script >
+   /* https://tailwind-elements.com/docs/standard/components/scroll-back-to-top-button/*/
 
-export default {
+   import { toast } from 'vue3-toastify';
+   import 'vue3-toastify/dist/index.css';
+
+
+   export default {
     name: "login",
     props:[''],
     data(){
         return{
             form : {
-                email: 'admin@kiranaapp.com',
+                email: 'guest@example.com',
                 password: 'password',
                 remember: true,
             },
             loginPage:true,
             forgetPass:false,
-            plan:{name:"",type:"",price:0,prompt_word_count:0,completion_word_count:0,total_word_count:0,social_uses:0,support:""},
             errors:"",
         }
     },
     methods:{
         submit() {
-            axios.post('/login/',this.form).then(response => {
+            axios.post('/api/login/',this.form).then(response => {
+                if (response.status === 202) {
+                    window.location ='/home';
+                }
+            }).catch((error) => {
+                if (error.response.status === 401) {
+                   toast.error('Login Failed!');
+                }
+                if (error.response.status === 422) {
+                    this.errors = error.response.data.errors;
+                    toast.error('Login Input Error!');
+                }
+            })
+        },
+        signUp() {
+            axios.post('/sign-up/',this.form).then(response => {
                 if (response.status === 200) {
-                    window.location ='/dashboard';
+                    window.location ='/login';
                 }
             }).catch((error) => {
                 if (error.response.status === 500) {
@@ -155,7 +177,7 @@ export default {
             })
         },
         reset(){
-            this.plan = { name:"", type:"",price:0,prompt_word_count:0,completion_word_count:0,total_word_count:0,social_uses:0,support:''}
+
         }
     },
     created(){}

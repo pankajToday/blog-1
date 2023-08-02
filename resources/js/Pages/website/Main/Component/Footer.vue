@@ -23,7 +23,7 @@
                         <h3 class="footer-heading">Categories</h3>
                         <ul class="footer-links list-unstyled">
                             <li v-for="(category ) in categoryList">
-                                <a href="#"><i class="bi bi-chevron-right"></i> {{category.name}}</a>
+                                <a href="#" @click="fetchPostByCategory(category.name)"><i class="bi bi-chevron-right"></i> {{category.name}}</a>
                             </li>
                         </ul>
                     </div>
@@ -86,6 +86,7 @@
         name: "FooterPage2",
         components: { },
         data: () => ({
+            title:"US Celebrities",
             loading:false,
             categoryList:[],
             recentPostList:[],
@@ -98,7 +99,6 @@
                     if(response.status === 200) {
                         this.recentPostList = response.data;
                         this.loading =false;
-                        console.log(this.recentPostList)
                     }
                 }).catch((e)=>{
                     this.loading =false;
@@ -109,7 +109,17 @@
                 const payload ={}
                 axios.post('/api/home/category-list', payload).then(response => {
                     if(response.status === 200) {
-                        this.categoryList = response.data; console.log(this.categoryList)
+                        this.categoryList = response.data;
+                    }
+                }).catch((e)=>{
+                    console.log('Categories Issue ',e.response.data)
+                })
+            },
+            fetchPostByCategory(name){
+                const payload ={l:5}
+                axios.post('/api/home/category/'+name, payload).then(response => {
+                    if(response.status === 200) {
+                        this.recentPostList = response.data;
                     }
                 }).catch((e)=>{
                     console.log('Categories Issue ',e.response.data)

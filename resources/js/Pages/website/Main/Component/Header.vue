@@ -30,8 +30,12 @@
                     </ul>
                 </li>-->
 
+                    <li><a href="/ai" title="Artificial intelligence">AI</a></li>
                     <li><a href="/about-us">About</a></li>
                     <li><a href="/contact-us">Contact</a></li>
+
+                    <li><a href="/login">Sign-In</a></li>
+                    <li><a href="/sign-up">Sign-Up</a></li>
                 </ul>
             </nav><!-- .navbar -->
 

@@ -50,7 +50,7 @@
                             </div>
                         </div>
 
-                        <div class=" w-full flex my-3 text-lg font-semibold ">
+                        <div class="w-full flex my-3 text-lg font-semibold ">
                             <div class="px-2 items-left">
                                 Posted By : {{post.posted_by_name}}
                             </div>

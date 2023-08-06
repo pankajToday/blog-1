@@ -188,7 +188,7 @@
 </template>
 
 <script>
-import Layout from "@/Components/Menus/Layout.vue";
+import Layout from "@/Components/Menus/AppLayout.vue";
 
 export default {
     name: "NewDashboard",

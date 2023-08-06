@@ -19,7 +19,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group( function () {
-    // add your routes.
+    Route::group(['prefix' => 'dashboard'],function ($q){
+        //Global Search
+        Route::post('/global-search',[\App\Http\Controllers\AdminHomeController::class ,'globalSearch']);
+
+    });
+
 });
 
 Route::get('/visitor-catch',[\App\Http\Controllers\VisitorLogController::class ,'catechVisitors']);
@@ -33,6 +38,7 @@ Route::group(['prefix' => 'home'],function ($q){
     Route::post('/category-list',[\App\Http\Controllers\MainPageController::class ,'categoryList']);
     Route::post('/recent-post',[\App\Http\Controllers\MainPageController::class ,'recentPost']);
     Route::post('/category/{name}',[\App\Http\Controllers\MainPageController::class ,'fetchPostByCategory']);
+
 
 });
 

@@ -36,6 +36,7 @@
 
                     <li><a href="/login">Sign-In</a></li>
                     <li><a href="/sign-up">Sign-Up</a></li>
+                    <li><a href="/push-notification">Notification</a></li>
                 </ul>
             </nav><!-- .navbar -->
 

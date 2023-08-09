@@ -21,5 +21,6 @@
 <body class="family-inter">
 @inertia
 
+
 </body>
 </html>

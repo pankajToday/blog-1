@@ -49,6 +49,10 @@
 <script>
     import { toast } from 'vue3-toastify';
     import 'vue3-toastify/dist/index.css';
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "firebase/app";
+    import { getAnalytics } from "firebase/analytics";
+
 
     export  default {
         name:"ToastNotification",
@@ -81,6 +85,27 @@
                     position: toast.POSITION.BOTTOM_RIGHT,
                     className: 'foo-bar',
                 });
+            },
+            firebase(){
+
+                // TODO: Add SDKs for Firebase products that you want to use
+                // https://firebase.google.com/docs/web/setup#available-libraries
+
+                // Your web app's Firebase configuration
+                // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+                const firebaseConfig = {
+                    apiKey: "AIzaSyCoOUPvo6Bt_ukX__V4J-PHtT7if197a7Q",
+                    authDomain: "push-notification-demo-be89b.firebaseapp.com",
+                    projectId: "push-notification-demo-be89b",
+                    storageBucket: "push-notification-demo-be89b.appspot.com",
+                    messagingSenderId: "1019444162193",
+                    appId: "1:1019444162193:web:bf6fafc8aff5cefbc49930",
+                    measurementId: "G-QVXKJWZYL5"
+                };
+
+                // Initialize Firebase
+                const app = initializeApp(firebaseConfig);
+                const analytics = getAnalytics(app);
             }
         },
         created(){

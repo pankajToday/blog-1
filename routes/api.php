@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FmNotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,10 @@ Route::middleware('auth:sanctum')->group( function () {
 Route::get('/visitor-catch',[\App\Http\Controllers\VisitorLogController::class ,'catechVisitors']);
 Route::post('/contact-us',[\App\Http\Controllers\HomeController::class ,'contactPost']);
 Route::post('login' , [\App\Http\Controllers\AuthController::class ,'login']);
+
+// Firebase Notification.
+Route::post('send-notification', [FmNotificationController::class, 'sendNotification'])->name('send.notification');
+Route::post('/fmc-save-token', [App\Http\Controllers\FmNotificationController::class, 'saveToken'])->name('save-token');
 
 // Home page API
 Route::group(['prefix' => 'home'],function ($q){

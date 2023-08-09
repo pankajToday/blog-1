@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FmNotificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,6 +61,10 @@ Route::get('/ai',[\App\Http\Controllers\HomeController::class ,'AIShow']);
 
 // Blog Post
 Route::post('/post/{id}' , [\App\Http\Controllers\MainPageController::class ,'viewPost'])->name('main.view-post');
+
+
+// Firebase Notification.
+Route::get('push-notification', [FmNotificationController::class, 'index']);
 
 
 Route::middleware('auth:sanctum')->group( function () {

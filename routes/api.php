@@ -23,8 +23,15 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::group(['prefix' => 'dashboard'],function ($q){
         //Global Search
         Route::post('/global-search',[\App\Http\Controllers\AdminHomeController::class ,'globalSearch']);
-
+        Route::post('/top-post/{limit}',[\App\Http\Controllers\AdminHomeController::class ,'topPost']);
+        Route::post('/top-category/{limit}',[\App\Http\Controllers\AdminHomeController::class ,'topCategory']);
+        Route::post('/top-keywords/{limit}',[\App\Http\Controllers\AdminHomeController::class ,'topKeywords']);
+        Route::post('/top-tags/{limit}',[\App\Http\Controllers\AdminHomeController::class ,'topTags']);
     });
+
+
+    Route::post('/post-update',[\App\Http\Controllers\PostController::class ,'update']);
+    Route::post('/post-remove/{uid}',[\App\Http\Controllers\PostController::class ,'destroy']);
 
 });
 

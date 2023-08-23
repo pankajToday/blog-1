@@ -347,8 +347,6 @@
             }
         },
         created(){
-          //  console.log('auth' , this.authUser)
-
             this.getTopPost();
             this.getTopCategory();
             this.getTopKeywords();

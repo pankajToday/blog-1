@@ -20,6 +20,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group( function () {
+
+    // Prefix -> Dashboard only for all type  of dashboard API.
     Route::group(['prefix' => 'dashboard'],function ($q){
         //Global Search
         Route::post('/global-search',[\App\Http\Controllers\AdminHomeController::class ,'globalSearch']);
@@ -30,6 +32,8 @@ Route::middleware('auth:sanctum')->group( function () {
     });
 
 
+    Route::post('/fetch-categories',[\App\Http\Controllers\CategoryController::class ,'fetchAll']);
+    Route::delete('/category-destroy/{id}',[\App\Http\Controllers\CategoryController::class ,'destroy']);
     Route::post('/post-update',[\App\Http\Controllers\PostController::class ,'update']);
     Route::post('/post-remove/{uid}',[\App\Http\Controllers\PostController::class ,'destroy']);
 
@@ -44,13 +48,13 @@ Route::post('send-notification', [FmNotificationController::class, 'sendNotifica
 Route::post('/fmc-save-token', [App\Http\Controllers\FmNotificationController::class, 'saveToken'])->name('save-token');
 
 // Home page API
+// Prefix -> Home only for all type of Home page API. that will be available for all users.
 Route::group(['prefix' => 'home'],function ($q){
     Route::post('/slider-post' , [\App\Http\Controllers\MainPageController::class ,'fetchSliderPost'])->name('main.slider-post');
     Route::post('/post/left-side/{limit}' , [\App\Http\Controllers\MainPageController::class ,'fetchLeftSidePost'])->name('main.left-side-post');
     Route::post('/category-list',[\App\Http\Controllers\MainPageController::class ,'categoryList']);
     Route::post('/recent-post',[\App\Http\Controllers\MainPageController::class ,'recentPost']);
     Route::post('/category/{name}',[\App\Http\Controllers\MainPageController::class ,'fetchPostByCategory']);
-
 
 });
 

@@ -16,4 +16,12 @@ class Category extends Model
     function post(){
         return $this->hasMany(Post::class ,'category_id' ,'id');
     }
+
+    function parent(){
+        return $this->belongsTo(Category::class ,'id','id')->whereNull('parent_id');
+    }
+
+    function subCategory(){
+        return $this->hasMany(Category::class ,'parent_id','id');
+    }
 }

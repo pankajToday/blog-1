@@ -60,7 +60,6 @@ class MediumController extends Controller
         return  response()->json([ 'status'=>'success' ,'data'=>$res['data']]);
     }
 
-
     function fetchPost( Request $request ){
         $curl = curl_init();
         curl_setopt_array($curl, array(

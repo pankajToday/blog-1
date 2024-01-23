@@ -76,5 +76,5 @@ Route::middleware('auth:sanctum')->group( function () {
 
 /** Medium API  **/
 Route::get('/fetch-user-info',[\App\Http\Controllers\MediumController::class ,'fetchUserInfo'])->name('medium.fetch-user');
-Route::get('/fetch-post',[\App\Http\Controllers\MediumController::class ,'fetchPost'])->name('medium.fetch-post');
+Route::post('/fetch-mediun-posts',[\App\Http\Controllers\MediumController::class ,'fetchPost'])->name('medium.fetch-post');
 Route::get('/store-post',[\App\Http\Controllers\MediumController::class ,'storePost'])->name('medium.store-post');

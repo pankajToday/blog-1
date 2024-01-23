@@ -59,7 +59,7 @@ Route::get('/admin',[\App\Http\Controllers\AdminHomeController::class ,'loginSho
 Route::get('/contact-us',[\App\Http\Controllers\HomeController::class ,'contactUs']);
 Route::get('/about-us',[\App\Http\Controllers\HomeController::class ,'aboutUs']);
 Route::get('/ai',[\App\Http\Controllers\HomeController::class ,'AIShow']);
-Route::get('/medium',[\App\Http\Controllers\MediumController::class ,'fetchPost']);
+Route::inertia('/medium', 'website/Main/medium-post');
 
 // Firebase Notification.
 Route::get('push-notification', [FmNotificationController::class, 'index']);

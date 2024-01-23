@@ -27,8 +27,8 @@ class MediumController extends Controller
                 CURLOPT_HTTPHEADER => array(
                     'Content-Type: application/json',
                     'Accept: application/json',
-                    'Authorization: Bearer 2c26ae32cadb4013fa840ed2be5c2c16a77f01a92ee51733070494804f8ac3917',
-                    'Cookie: sid=1:ouiKHx2JBR+oVBktD0dn0PLaqgxk4ccNRrzqMGIRPh+PWEhSsCs/SmIRwBxsXcdr; uid=lo_5ebff855fc2b'
+                    'Authorization: Bearer '.env('VITE_MEDIUM_TOKEN').'',
+
                 ),
             ));
 
@@ -63,7 +63,7 @@ class MediumController extends Controller
     function fetchPost( Request $request ){
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@ankuprsdpkp',
+            CURLOPT_URL => env('VITE_MEDIUM_URL'),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,

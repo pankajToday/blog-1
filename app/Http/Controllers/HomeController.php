@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactUs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\In;
 use Inertia\Inertia;
 
@@ -13,7 +14,7 @@ class HomeController extends Controller
      * show Main page .
      * @return \Inertia\Response
      */
-    function mainPage(){
+    function  mainPage(){
         return Inertia::render('Main');
     }
 
@@ -46,7 +47,8 @@ class HomeController extends Controller
     }
 
     function aboutUs(){
-        return view('zenBlog.about');
+        //return view('zenBlog.about');
+        return Inertia::render('website/Main/about');
     }
 
     function AIShow(){
@@ -80,6 +82,45 @@ class HomeController extends Controller
             return "cURL Error #:" . $err;
         } else {
             return json_decode($response,true);
+        }
+    }
+
+    function uploadFile(Request $request){
+        $request->validate([
+            'file_name' => 'required',
+            'file' => 'required|mimes:jpeg,png,jpg,mp4,mp3,wav,mp4,mpeg,avi,mov,wnv,mkv|max:6048'
+        ]);
+
+        $url="project-assets/images/website/post-images";
+        $fileName= $request->file_name.'.'.$request ->file('file')->extension();
+        $type = $this->getFileType($request ->file('file')->extension());
+
+        $path = public_path($url);
+        /*!is_dir($path) &&
+        mkdir($path, 0777, true);*/
+        $request->file->move($path, $fileName);
+
+        return response()->json([
+            'status' => 'success','url'=>url($url.'/'.$fileName),
+            'file_name'=>$fileName,'type'=>$type], 200);
+
+    }
+
+    function getFileType( $media ){
+        if( in_array($media , ['jpg','jpeg','png']) ) {
+            return 'image';
+        }
+        elseif ( in_array($media , ['mp4','mpeg','avi','mov','wnv','mkv'])  ){
+            return 'video';
+        }
+        elseif ( in_array($media , ['mp3','wav'])  ){
+            return 'audio';
+        }
+        elseif ( in_array($media , ['pdf'])  ){
+            return 'pdf';
+        }
+        elseif ( in_array($media , ['doc','elx','txt','xml','ppt','pptx','docx','csv'])  ){
+            return 'document';
         }
     }
 

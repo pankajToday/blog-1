@@ -61,7 +61,7 @@
         data(){
             return{
                 // authUser:this.$page.props.auth.user,
-                headerTitle :'US Celebrities',
+                headerTitle :'Tech Blog',
                 inputText:"नमस्कार पंकज जी आज मई आपके आवाज में बात करुँगी।",
                 selectedLan:"",
                 resultOutput:"",

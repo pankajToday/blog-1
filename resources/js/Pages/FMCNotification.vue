@@ -67,7 +67,7 @@
         data(){
             return{
                 // authUser:this.$page.props.auth.user,
-                headerTitle :'US Celebrities',
+                headerTitle :'Tech Blog',
                 nBody:'',
                 nTitle:'',
                 currentToken:"",

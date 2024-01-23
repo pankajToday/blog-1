@@ -35,15 +35,16 @@
                     <li><a href="/contact-us">Contact</a></li>
 
                     <li><a href="/login">Sign-In</a></li>
-                    <li><a href="/sign-up">Sign-Up</a></li>
+                   <!-- <li><a href="/sign-up">Sign-Up</a></li>-->
                     <li><a href="/push-notification">Notification</a></li>
+                    <li><a href="/medium">Medium Posts</a></li>
                 </ul>
             </nav><!-- .navbar -->
 
             <div class="position-relative">
-                <a href="#" class="mx-2"><span class="bi-facebook"></span></a>
+                <!--<a href="#" class="mx-2"><span class="bi-facebook"></span></a>
                 <a href="#" class="mx-2"><span class="bi-twitter"></span></a>
-                <a href="#" class="mx-2"><span class="bi-instagram"></span></a>
+                <a href="#" class="mx-2"><span class="bi-instagram"></span></a>-->
 
                 <a href="#" class="mx-2 js-search-open"><span class="bi-search"></span></a>
                 <i class="bi bi-list mobile-nav-toggle"></i>

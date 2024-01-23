@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="row g-5">
                     <div class="col-lg-4">
-                        <h3 class="footer-heading">About US Celebrities Blog  </h3>
+                        <h3 class="footer-heading">About Tech Blog  </h3>
                         <p>In today's digital age, businesses are constantly seeking ways to stand out from the competition
                             and connect with their target audience effectively. One powerful tool that can help achieve these
                             goals is blogging. In our blog, we will explore the significance of US Celerity, the importance
@@ -86,7 +86,7 @@
         name: "FooterPage2",
         components: { },
         data: () => ({
-            title:"US Celebrities",
+            title:"Tech Blog",
             loading:false,
             categoryList:[],
             recentPostList:[],

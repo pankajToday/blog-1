@@ -21,19 +21,21 @@ Route::get('/visitor-show',[\App\Http\Controllers\VisitorLogController::class ,'
 Route::get('hash', function (){
     return \Illuminate\Support\Facades\Hash::make('password');
 });
-Route::middleware(['visitor.log'])->group(function() {
-    Route::get('/',[\App\Http\Controllers\HomeController::class ,'mainPage'])->name('post.all');
-    Route::get('/post/{slug}',[\App\Http\Controllers\PostController::class ,'postView'])->name('post.view');
-});
 Route::get('/testCode',[\App\Http\Controllers\HomeController::class ,'testCode']);
 Route::inertia('toast-alert','ToastNotification');
 #Route::inertia('your-ideas', 'YourIdea');
 
-
 # ----------------------------  Test URL end  ----------------------------------------
 
 
+Route::middleware(['visitor.log'])->group(function() {
+    Route::get('/',[\App\Http\Controllers\HomeController::class ,'mainPage'])->name('post.all');
+    Route::get('/post/{slug}',[\App\Http\Controllers\PostController::class ,'postView'])->name('post.view');
+});
+// Blog Post
+Route::post('/post/{id}' , [\App\Http\Controllers\MainPageController::class ,'viewPost'])->name('main.view-post');
 Route::inertia('login','Auth/Login')->name('login');
+
 //Auth
 Route::get('/sign-up', [\App\Http\Controllers\HomeController::class, 'signUp']);
 Route::get('/verify/{token}', [\App\Http\Controllers\HomeController::class, 'VerifyToLogin'])->name('user-verify');
@@ -57,11 +59,7 @@ Route::get('/admin',[\App\Http\Controllers\AdminHomeController::class ,'loginSho
 Route::get('/contact-us',[\App\Http\Controllers\HomeController::class ,'contactUs']);
 Route::get('/about-us',[\App\Http\Controllers\HomeController::class ,'aboutUs']);
 Route::get('/ai',[\App\Http\Controllers\HomeController::class ,'AIShow']);
-
-
-// Blog Post
-Route::post('/post/{id}' , [\App\Http\Controllers\MainPageController::class ,'viewPost'])->name('main.view-post');
-
+Route::get('/medium',[\App\Http\Controllers\MediumController::class ,'fetchPost']);
 
 // Firebase Notification.
 Route::get('push-notification', [FmNotificationController::class, 'index']);
@@ -78,7 +76,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::inertia('keywords', 'Dashboard/Keywords');
     Route::inertia('tags', 'Dashboard/Tags');
     Route::inertia('profile-setting', 'Dashboard/ProfileSetting');
+    Route::inertia('upload-file', 'UploadFile2');
 
     Route::get('logout',[\App\Http\Controllers\AuthController::class ,'logout'])->name('logout');
+
+    Route::get('/post-create', [\App\Http\Controllers\PostController::class ,'create']);
+    Route::get('/post/{id}', [\App\Http\Controllers\PostController::class ,'edit']);
+
 
 });

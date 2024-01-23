@@ -102,7 +102,7 @@
             return{
                 // authUser:this.$page.props.auth.user,
                 post:"",
-                headerTitle :'US Celebrities',
+                headerTitle :'Tech Blog',
             }
         },
         methods:{

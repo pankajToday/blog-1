@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources;
+namespace App\Http\Resources\Dashboard;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CategoryResource extends JsonResource
+class KeywordsResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,9 @@ class CategoryResource extends JsonResource
     {
         return [
             'id' => $this->id ,
-            'name' => $this->name ,
-            'parent_id' => $this->parent_id ,
+            'name' => ucwords($this->name) ,
             'slug' => $this->slug ,
-            'category_order' => $this->category_order ,
             'status' => $this->status?'Active':'Inactive' ,
-            'sub_category' => $this->subCategory ,
         ];
     }
 }

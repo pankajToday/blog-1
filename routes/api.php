@@ -56,8 +56,25 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::post('/create-category',[\App\Http\Controllers\CategoryController::class ,'store']);
     Route::post('/fetch-categories',[\App\Http\Controllers\CategoryController::class ,'fetchAll']);
     Route::delete('/category-destroy/{id}',[\App\Http\Controllers\CategoryController::class ,'destroy']);
-    Route::post('/post-update',[\App\Http\Controllers\PostController::class ,'update']);
-    Route::post('/post-remove/{uid}',[\App\Http\Controllers\PostController::class ,'destroy']);
+
+    Route::post('/create-tag',[\App\Http\Controllers\TagController::class ,'store']);
+    Route::post('/fetch-tags',[\App\Http\Controllers\TagController::class ,'fetchAll']);
+    Route::delete('/tag-destroy/{id}',[\App\Http\Controllers\TagController::class ,'destroy']);
+
+    Route::post('/create-keyword',[\App\Http\Controllers\KeywordController::class ,'store']);
+    Route::post('/fetch-keywords',[\App\Http\Controllers\KeywordController::class ,'fetchAll']);
+    Route::delete('/keyword-destroy/{id}',[\App\Http\Controllers\KeywordController::class ,'destroy']);
+    
+    Route::post('/create-post',[\App\Http\Controllers\PostController::class ,'store']);
+    Route::post('/fetch-posts',[\App\Http\Controllers\PostController::class ,'fetchAll']);
+    Route::delete('/post-destroy/{id}',[\App\Http\Controllers\PostController::class ,'destroy']);
+
+    Route::post('/upload-file',[\App\Http\Controllers\HomeController::class ,'uploadFile'])->name('media.store');
 
 });
 
+
+/** Medium API  **/
+Route::get('/fetch-user-info',[\App\Http\Controllers\MediumController::class ,'fetchUserInfo'])->name('medium.fetch-user');
+Route::get('/fetch-post',[\App\Http\Controllers\MediumController::class ,'fetchPost'])->name('medium.fetch-post');
+Route::get('/store-post',[\App\Http\Controllers\MediumController::class ,'storePost'])->name('medium.store-post');

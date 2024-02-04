@@ -11,9 +11,9 @@
                 <div  class="mb-3 xs:grid xs:grid-cols-1 sm:grid sm:grid-cols-2 md:grid md:grid-cols-3 lg:grid-cols-4 gap-4 m-4">
                     <div  class="w-[200px] p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Post : 67</h5>
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Post : {{stats?stats.posts:0}}</h5>
                         </a>
-                       <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                       <a href="/posts" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             View
                             <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -22,9 +22,9 @@
                     </div>
                     <div  class="w-[200px] p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Total Tags : 100</h5>
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Category : {{stats?stats.category:0}}</h5>
                         </a>
-                        <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <a href="/categories" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             View
                             <svg class="w-3.5 h-3.5 ml-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
@@ -33,7 +33,7 @@
                     </div>
                     <div  class="w-[200px] p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Total Keywords : 200</h5>
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Monthly Visits : {{stats?stats.monthly_Visits:0}}</h5>
                         </a>
                         <a href="#" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             View
@@ -117,11 +117,8 @@
                         <table v-if="!topPostLoading" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <th scope="col" class="p-4">
-                                    <div class="flex items-center">
-                                        <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="checkbox-all-search" class="sr-only">checkbox</label>
-                                    </div>
+                                <th scope="col" class="px-6 py-3">
+                                    User
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Date
@@ -138,18 +135,12 @@
                                 <th scope="col" class="px-6 py-3">
                                     Status
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Action
-                                </th>
+
                             </tr>
                             </thead>
                             <tbody>
                             <tr v-for="(post, index) in topPost" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="w-4 p-4">
-                                    <div class="flex items-center">
-                                        <input :value="post.uid" id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                                    </div>
+                                <td class="px-6 py-4">
 
                                     <div class="flex items-center space-x-4">
                                         <img class="w-10 h-10 rounded-full" :src="post.post_by.user_img" alt="">
@@ -158,25 +149,22 @@
                                         </div>
                                     </div>
                                 </td>
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <th scope="row" class=" font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{post.post_date}}
                                 </th>
-                                <td class="px-6 py-4">
+                                <td class="">
                                     {{post.title}}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="">
                                     {{post.post_category.name}}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="">
                                     {{post.post_content}}
                                 </td>
-                                <td class="px-6 py-4">
+                                <td class="">
                                     {{post.status}}
                                 </td>
-                                <td class="px-6 py-4">
-                                    <a href="#" @click="editPost(post.uid)" class="py-1 px-2 font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    <a href="#" @click="removePost(post.uid)" class="py-1 px-2  font-medium text-blue-600 dark:text-blue-500 hover:underline">Remove</a>
-                                </td>
+
                             </tr>
                             </tbody>
                         </table>
@@ -189,10 +177,12 @@
                         <div class="flex items-center justify-between my-2 px-3">
                             <div class="grid grid-cols-7 gap-2 my-3 mx-2">
                                 <div  v-for="(category , tagIndex) in topCategory" >
-                                    <div class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                        {{category.name}}
+                                    <a :href="'/categories/'+category.name">
+                                        <div class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                        {{category.id}}
                                         <span  v-if="category.post_count > 0"  class="inline-flex items-center justify-center w-6 h-6 ml-2 text-xs font-semibold text-blue-800 bg-white rounded-full">{{category.post_count}}</span>
-                                    </div>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -205,10 +195,12 @@
                         <div class="flex items-center justify-between my-2 px-3">
                             <div class="grid grid-cols-4 gap-5 my-3 mx-2">
                                 <div   v-for="(tag , tagIndex) in topTags" >
+                                  <a :href="'/tags/'+tag.name">
                                     <div class="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                         {{tag.name}}
                                         <span  v-if="tag.post_tags_count > 0"  class="inline-flex items-center justify-center w-6 h-6 ml-2 text-xs font-semibold text-blue-800 bg-white rounded-full">{{tag.post_tags_count}}</span>
                                     </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -221,10 +213,12 @@
                         <div class="flex items-center justify-between  my-2 px-3">
                             <div class="grid grid-cols-7 gap-2 my-3 mx-2">
                                 <div v-for="(topKeyword , topKeywordIndex) in topKeywords" >
-                                <span   class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">
-                                    {{topKeyword.name}}
-                                    <span v-if="topKeyword.post_keywords_count>0" class="inline-flex items-center justify-center w-6 h-6 ml-2 text-xs font-semibold text-blue-800 bg-white rounded-full">{{topKeyword.post_keywords_count}}</span>
-                                </span>
+                                    <a :href="'/keywords/'+topKeyword.name">
+                                        <span   class="bg-red-100 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-red-400 border border-red-400">
+                                            {{topKeyword.name}}
+                                            <span v-if="topKeyword.post_keywords_count>0" class="inline-flex items-center justify-center w-6 h-6 ml-2 text-xs font-semibold text-blue-800 bg-white rounded-full">{{topKeyword.post_keywords_count}}</span>
+                                        </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -255,7 +249,7 @@
 
 
     export default {
-        name: "Dashboard",
+        name: "GuestDashboard",
         components: { Link , layout , Footer ,DefaultSkeletons,GridLayout,Breadcrumb },
         data(){
             return{
@@ -269,6 +263,7 @@
                 topTags:[],
                 topCategory:[],
                 topKeywords:[],
+                stats:{},
             }
         },
         methods:{
@@ -344,13 +339,26 @@
                         } )
                     }
                 })
-            }
+            },
+            dashboardStats(){
+              axios.post('/api/dashboard/dashboard-stats').then((resource)=>{
+                  if( resource.status === 200 && resource.data.status === 'success'){
+                      this.stats ={
+                          posts : resource.data.posts,
+                          category :  resource.data.category,
+                          monthly_Visits: resource.data.monthly_Visits,
+                      }
+                  }
+
+              })
+            },
         },
         created(){
             this.getTopPost();
             this.getTopCategory();
             this.getTopKeywords();
             this.getTopTags();
+            this.dashboardStats();
         },
         watch:{
             'navbarDefault':{

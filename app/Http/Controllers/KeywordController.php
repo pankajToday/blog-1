@@ -10,6 +10,11 @@ use Illuminate\Support\Str;
 
 class KeywordController extends Controller
 {
+
+    function index($keyword){
+        return "Please wait....";
+    }
+
     function  fetchAll(Request $request ){
         return KeywordsResource::collection(
                     Keyword::when( request('search') ,  function ($q){

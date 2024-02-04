@@ -144,7 +144,8 @@
     },
     methods:{
         submit() {
-            axios.post('/api/login/',this.form).then(response => {
+            let payload = { email:this.form.email , password: this.form.password , remember:this.form.remember };
+            axios.post('/api/login',  payload).then(response => {
                 if (response.status === 202) {
                     window.location ='/home';
                 }

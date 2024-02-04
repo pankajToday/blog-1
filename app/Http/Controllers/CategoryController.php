@@ -10,6 +10,11 @@ use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
+
+    function index($category){
+        return "Please wait....";
+    }
+
     function  fetchAll(Request $request ){
         return CategoryResource::collection(
                     Category::whereNull('parent_id')

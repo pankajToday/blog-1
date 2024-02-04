@@ -11,6 +11,11 @@ use Illuminate\Support\Str;
 
 class TagController extends Controller
 {
+    function index($tag){
+        return "Please wait....";
+    }
+
+
     function  fetchAll(Request $request ){
         return TagResource::collection(
                     Tag::when( request('search') ,  function ($q){

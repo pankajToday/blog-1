@@ -21,7 +21,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/visitor-catch',[\App\Http\Controllers\VisitorLogController::class ,'catechVisitors']);
 Route::post('/contact-us',[\App\Http\Controllers\HomeController::class ,'contactPost']);
-Route::post('login' , [\App\Http\Controllers\AuthController::class ,'login']);
+
+// Login routes
+Route::post('login' , [\App\Http\Controllers\AuthController::class ,'login']);//->middleware(array_filter([ 'throttle:60']));
 
 // Firebase Notification.
 Route::post('send-notification', [FmNotificationController::class, 'sendNotification'])->name('send.notification');
@@ -50,6 +52,8 @@ Route::middleware('auth:sanctum')->group( function () {
         Route::post('/top-category/{limit}',[\App\Http\Controllers\AdminHomeController::class ,'topCategory']);
         Route::post('/top-keywords/{limit}',[\App\Http\Controllers\AdminHomeController::class ,'topKeywords']);
         Route::post('/top-tags/{limit}',[\App\Http\Controllers\AdminHomeController::class ,'topTags']);
+
+        Route::post('/dashboard-stats',[\App\Http\Controllers\AdminHomeController::class ,'dashboardStats']);
     });
 
 
@@ -67,6 +71,8 @@ Route::middleware('auth:sanctum')->group( function () {
     
     Route::post('/create-post',[\App\Http\Controllers\PostController::class ,'store']);
     Route::post('/fetch-posts',[\App\Http\Controllers\PostController::class ,'fetchAll']);
+    Route::post('/fetch-post/{slug}',[\App\Http\Controllers\PostController::class ,'fetchPost']);
+    Route::post('/update-post/{slug}',[\App\Http\Controllers\PostController::class ,'updatePost']);
     Route::delete('/post-destroy/{id}',[\App\Http\Controllers\PostController::class ,'destroy']);
 
     Route::post('/upload-file',[\App\Http\Controllers\HomeController::class ,'uploadFile'])->name('media.store');

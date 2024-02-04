@@ -34,9 +34,10 @@ Route::middleware(['visitor.log'])->group(function() {
 });
 // Blog Post
 Route::post('/post/{id}' , [\App\Http\Controllers\MainPageController::class ,'viewPost'])->name('main.view-post');
-Route::inertia('login','Auth/Login')->name('login');
+
 
 //Auth
+Route::get('/login', [\App\Http\Controllers\AuthController::class, 'signIn'])->name('login');
 Route::get('/sign-up', [\App\Http\Controllers\HomeController::class, 'signUp']);
 Route::get('/verify/{token}', [\App\Http\Controllers\HomeController::class, 'VerifyToLogin'])->name('user-verify');
 
@@ -66,19 +67,26 @@ Route::get('push-notification', [FmNotificationController::class, 'index']);
 
 
 Route::middleware('auth:sanctum')->group( function () {
-    Route::get('home',[\App\Http\Controllers\AuthController::class ,'home'])->name('dashboard');
+    Route::get('/home',[\App\Http\Controllers\AuthController::class ,'home'])->name('dashboard');
+    Route::get('/tags/{tag}',[\App\Http\Controllers\TagController::class ,'index'])->name('dashboard.tags');
+    Route::get('/categories/{category}',[\App\Http\Controllers\CategoryController::class ,'index'])->name('dashboard.category');
+    Route::get('/keywords/{keyword}',[\App\Http\Controllers\KeywordController::class ,'index'])->name('dashboard.keyword');
+
+    //post routes
+    Route::get('/post/{slug}',[\App\Http\Controllers\PostController::class ,'edit'])->name('post.show');
+
 });
 
 Route::group(['middleware' => 'auth'], function () {
     //Protected Routes
-    Route::inertia('category', 'Dashboard/Category');
+    Route::inertia('categories', 'Dashboard/Category');
     Route::inertia('posts', 'Dashboard/Posts');
     Route::inertia('keywords', 'Dashboard/Keywords');
     Route::inertia('tags', 'Dashboard/Tags');
     Route::inertia('profile-setting', 'Dashboard/ProfileSetting');
     Route::inertia('upload-file', 'UploadFile2');
 
-    Route::get('logout',[\App\Http\Controllers\AuthController::class ,'logout'])->name('logout');
+    Route::get('logout',[\App\Http\Controllers\AuthController::class ,'logout']);
 
     Route::get('/post-create', [\App\Http\Controllers\PostController::class ,'create']);
     Route::get('/post/{id}', [\App\Http\Controllers\PostController::class ,'edit']);

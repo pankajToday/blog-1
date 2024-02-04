@@ -14,6 +14,10 @@ use Symfony\Component\HttpFoundation\Response;
 class AuthController extends Controller
 {
 
+    function signIn(){
+        return Inertia::render('Auth/Login');
+    }
+
     function login(Request $request){
         $request->validate([
             'email' => 'required',

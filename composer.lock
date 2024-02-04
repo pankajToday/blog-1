@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2cd636008766d51a531109dab7dd1374",
+    "content-hash": "72045f29f66026462edd2bcbfb10e01c",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -1938,16 +1938,16 @@
         },
         {
             "name": "laravel/jetstream",
-            "version": "v3.2.4",
+            "version": "v3.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/jetstream.git",
-                "reference": "43ce5c4c2c31a7ab7ef5d3f49dfb41f83d206706"
+                "reference": "51a9ebf97839d2ae6e39ec8eb22b0555b1db20e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/jetstream/zipball/43ce5c4c2c31a7ab7ef5d3f49dfb41f83d206706",
-                "reference": "43ce5c4c2c31a7ab7ef5d3f49dfb41f83d206706",
+                "url": "https://api.github.com/repos/laravel/jetstream/zipball/51a9ebf97839d2ae6e39ec8eb22b0555b1db20e3",
+                "reference": "51a9ebf97839d2ae6e39ec8eb22b0555b1db20e3",
                 "shasum": ""
             },
             "require": {
@@ -2003,7 +2003,7 @@
                 "issues": "https://github.com/laravel/jetstream/issues",
                 "source": "https://github.com/laravel/jetstream"
             },
-            "time": "2023-07-08T21:21:48+00:00"
+            "time": "2023-07-13T13:20:19+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -9900,5 +9900,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.6.0"
 }

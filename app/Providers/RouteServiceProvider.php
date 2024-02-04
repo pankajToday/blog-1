@@ -33,6 +33,14 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            Route::group([
+                'namespace' => 'Laravel\Fortify\Http\Controllers',
+                'domain' => config('fortify.domain', null),
+                'prefix' => config('fortify.prefix'),
+            ], function () {
+                $this->loadRoutesFrom(base_path('routes/auth.php'));
+            });
         });
     }
 
@@ -42,7 +50,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function configureRateLimiting(): void
     {
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+            return Limit::perMinutes(50,100)->by($request->user()?->id ?: $request->ip());
         });
     }
 }

@@ -10,15 +10,15 @@
 
                     <div class="relative overflow-x-auto shadow-md mt-10">
                         <div class="flex justify-between items-center bg-gray-50 border-2 border-gray-100 ">
-                            <div class="px-2 flex justify-between items-center">  Edit Post </div>
+                            <div class="px-2 flex justify-between items-center">  Add New Post </div>
                             <a href="/posts"
-                               class="px-2.5 py-2 mr-2 mb-2 text-white border border-blue-500 bg-blue-400 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-500 dark:focus:ring-gray-800">Back</a>
+                                class="px-2.5 py-2 mr-2 mb-2 text-white border border-blue-500 bg-blue-400 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-500 dark:focus:ring-gray-800">Back</a>
                         </div>
 
 
                         <div class="grid gap-6 mb-6 px-2 py-2 md:grid-cols-3">
                             <div class="relative z-0">
-                                <select v-model="post.category_id" id="category"  class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
+                                <select v-model="post.category_id" id="category" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
                                     <option value="" selected>Choose a Category</option>
                                     <option :value="item.id" v-for="item in categories">{{item.name}}</option>
                                 </select>
@@ -132,7 +132,6 @@
     export default {
         name: "Tags",
         components: { Link , layout , Footer ,DefaultSkeletons,GridLayout,Breadcrumb },
-        props:['slug'],
         data(){
             return{
                 addNew :false ,
@@ -143,38 +142,29 @@
                 skeletonName : "default" ,
                 loading : false ,
                 search_post_items:"" ,
-                breadcrumb : 'Post Edit' ,
+                breadcrumb : 'Post|Add New' ,
                 posts : [] ,
-                post :{
-                    category_id:"" , title:"", caption:"",
-                },
-                categories:[],
+                post :{ id:'',title:'',category_id:"" },
+                categories:[{id:1,name:'Name 1'},{id:1,name:'Name 2'},{id:1,name:'Name 3'}],
             }
         },
         methods:{
-            fetch(){
-                axios.post( '/api/fetch-post/'+this.slug ).then( (response) =>{
+            fetchTags(){
+                axios.post('api/fetch-posts',{search:this.search_post_items,page:this.page}).then( (response) =>{
                     if( response.status ){
-                        this.posts =  response.data.data;
+                       this.posts =  response.data.data;
                     }
                 });
             },
-            fetchCategory(){
-                axios.post( '/api/fetch-categories' ).then( (response) =>{
-                    if( response.status ){
-                        this.categories =  response.data.data;
-                    }
-                });
-            },
-            delete(id){
+            deleteTag(id){
                 Swal.fire({
                     title: 'Do you want to save the changes?',
                     showCancelButton: true,
                     confirmButtonText: 'Delete',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        axios.delete('/api/post-destroy/'+id ,  {}).then( (respnse)=>{
-                            if( respnse.status === 200 ){
+                        axios.delete('api/post-destroy/'+id ,  {}).then( (respnse)=>{
+                            if( respnse.status == 200 ){
                                 toast.success('Tag Deleted Successfully');
                                 this.fetchTags();
                             }
@@ -184,10 +174,13 @@
                     }
                 })
             },
+            editTag(editTag){
+
+            },
             reset(){
                 this.category = { name:'',id:'',status:false } ;
             },
-            update(){
+            saveNew(){
                 this.loading = true ;
                 axios.post( '/api/create-post' ,this.post ).then( (response )=>{
                     if( response.status === 200 ){
@@ -206,17 +199,37 @@
                     toast.error('Something went wrong!');
                 });
             },
+            updateTag(){
+                this.loading = true ;
+                axios.post( '/api/create-post' ,this.post ).then( (response )=>{
+                    if( response.status === 200 ){
+                        this.loading = false ;
+                        this.editTagFlag = false ; 
+                        toast.success('Tag Updated!');
+                        this.fetchTags();
+                    }
+                } ).catch( (error) =>{
+                    this.loading = false ;
+                    if(error && error.response && error.response.status === 422)
+                    {
+                        this.errors = error.response.error;
+                        console.log(  'error' ,  this.errors );
+                    }
+
+                    toast.error('Something went wrong!');
+                });
+            }
+
 
         },
         created(){
-            this.fetch();
-            this.fetchCategory();
+            this.fetchTags();
         },
         watch:{
             'search_post_items' : {
                 handler(){
                     setTimeout( ()=>{
-                        this.fetch();
+                        this.fetchTags();
                     },1000);
                 }
             }

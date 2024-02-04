@@ -22,7 +22,7 @@
                                 </div>
                             </div>
 
-                            <a href="/post-create" target="_blank" type="button"
+                            <a  v-if="authUser.role_id !== 3" href="/post-create" target="_blank" type="button"
                                     class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Add New</a>
                         </div>
 
@@ -30,10 +30,7 @@
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="p-4">
-                                    <div class="flex items-center">
-                                        <input id="checkbox-all-search" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                        <label for="checkbox-all-search" class="sr-only">checkbox</label>
-                                    </div>
+                                    No.
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                      Title
@@ -50,7 +47,7 @@
                                 <th scope="col" class="px-6 py-3">
                                     Posted Date
                                 </th>
-                                <th scope="col" class="px-6 py-3">
+                                <th v-if="authUser.role_id !== 3" scope="col" class="px-6 py-3">
                                     Action
                                 </th>
                             </tr>
@@ -58,13 +55,10 @@
                             <tbody>
                                <tr v-for="( post ,index ) in posts" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td class="w-4 p-4">
-                                        <div class="flex items-center">
-                                            <input v-model="post.uid" id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-                                            <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
-                                        </div>
+                                        {{index+1}}
                                     </td>
                                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{post.title.length > 40?post.title.slice(0,40)+' ...':post.title}}
+                                        <a :href="'/post/'+post.slug">  {{post.title.length > 40?post.title.slice(0,40)+' ...':post.title}}</a>
                                     </th>
                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                        {{post.category?post.category.name:"-"}}
@@ -79,7 +73,7 @@
                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                        {{post.published_at}}
                                    </th>
-                                    <td class="px-6 py-4">
+                                    <td  v-if="authUser.role_id !== 3" class="px-6 py-4">
                                         <a href="#" @click="editTag(post.id)" class="font-medium text-blue-600 dark:text-blue-500 mr-2 hover:underline">Edit</a>
                                         <a href="#" @click="deleteTag(post.id)" class="font-medium text-blue-600 dark:text-red-500 ml-2 hover:underline">Delete</a>
                                     </td>
@@ -111,7 +105,7 @@
 
 
     export default {
-        name: "Tags",
+        name: "posts",
         components: { Link , layout , Footer ,DefaultSkeletons,GridLayout,Breadcrumb },
         data(){
             return{
@@ -123,7 +117,7 @@
                 skeletonName : "default" ,
                 loading : false ,
                 search_post_items:"" ,
-                breadcrumb : 'Tags All' ,
+                breadcrumb : 'All Posts' ,
                 posts : [] ,
                 post :{ id:'',title:'', },
                 page : 1 ,

@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Keyword;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\VisitorLog;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use function React\Promise\all;
@@ -58,5 +60,19 @@ class AdminHomeController extends Controller
         return  $keywords =    Tag::withCount('postTags')
             ->orderBy('id','desc')
             ->get();
+    }
+
+    function dashboardStats(){
+        $start =Carbon::now()->subDay(30)->format('Y-m-d');
+        $end = Carbon::now()->format('Y-m-d');
+
+        $visitors =  VisitorLog::whereBetween('created_at',[$start ,$end])->count();
+        $posts = Post::whereBetween('created_at',[$start ,$end])->count();
+        $category = Category::count();
+
+        return response()->json([
+            'status' =>'success' , 'monthly_Visits'=>$visitors ,
+            'category'=> $category ,'posts'=>$posts ]);
+
     }
 }

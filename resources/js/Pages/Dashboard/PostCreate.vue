@@ -23,86 +23,88 @@
                                     <option :value="item.id" v-for="item in categories">{{item.name}}</option>
                                 </select>
 
-                                <p v-if="errors && errors.category_id"  class="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    <span class="font-medium">{{   errors.category_id[0]}}!</span>
+                                <p v-if="errors && errors.category_id"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
+                                    {{   errors.post.category_id[0]}}
                                 </p>
                             </div>
 
                             <div class="relative z-0">
                                 <input v-model="post.title"  type="text" id="post_title" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                                 <label for="post_title" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Title <span class="text-red-500 px-2 text-3 font-bold ">*</span> </label>
-                                <p v-if="errors && errors.title"  class="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    <span class="font-medium">{{   errors.title[0]}}!</span>
+                                <p v-if="errors && errors.title"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
+                                    {{   errors.post.title[0]}}
                                 </p>
                             </div>
 
                             <div class="relative z-0">
                                 <input v-model="post.caption"  type="text" id="post_caption" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="" />
                                 <label for="post_caption" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Caption </label>
-                                <p v-if="errors && errors.caption"  class="mt-2 text-sm text-red-600 dark:text-red-500">
-                                    <span class="font-medium">{{   errors.caption[0]}}!</span>
+                                <p v-if="errors && errors.caption"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
+                                    {{   errors.post.caption[0]}}
                                 </p>
                             </div>
 
                         </div>
 
                         <div class="grid gap-6 mb-6 px-2 py-2 md:grid-cols-3">
-                            <div>
-                                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>
-                                <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required>
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> Some error message.</p>
-                            </div>
-                            <div>
-                                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name</label>
-                                <input type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required>
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> Some error message.</p>
-                            </div>
-                            <div>
-                                <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
-                                <input type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required>
-                            </div>
-                            <div>
-                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
-                                <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required>
-                            </div>
-                            <div>
-                                <label for="website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Website URL</label>
-                                <input type="url" id="website" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="flowbite.com" required>
+                            <div class="relative z-0">
+                                <label for="feature_image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Feature Image</label>
+
+                                <div class=" flex items-center justify-center text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <div class="" @dragover="dragover" @dragleave="dragleave" @drop="drop">
+                                        <input type="file" multiple name="fields[feature_image][]" id="feature_image"
+                                               class="w-px h-px opacity-0 overflow-hidden absolute" @change="onChange" ref="file" accept=".pdf,.jpg,.jpeg,.png" />
+
+                                        <label for="feature_image" class="px-3 py-2 block cursor-pointer">
+                                            <div>
+                                                <span class="underline">click here</span> or drop files in here
+                                            </div>
+                                        </label>
+                                        <ul class="mt-4" v-if="this.filelist.length" v-cloak >
+                                            <li class="text-sm p-1" v-for="file in filelist">
+                                                <img :src="post.feature_image" class="w-[200px] h-[200px] m-2">
+                                               {{file.name}}<button class="ml-2" type="button" @click="remove(filelist.indexOf(file))" title="Remove file">remove</button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <p v-if="errors && errors.feature_image"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
+                                        {{   errors.post.feature_image[0]}}
+                                    </p>
+                                </div>
+
+
+
                             </div>
 
                         </div>
 
-                        <div class="grid gap-6 mb-6 px-2 py-2 md:grid-cols-4">
-                            <div>
-                                <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>
-                                <input type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="John" required>
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> Some error message.</p>
-                            </div>
-                            <div>
-                                <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last name</label>
-                                <input type="text" id="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Doe" required>
-                                <p class="mt-2 text-sm text-red-600 dark:text-red-500"><span class="font-medium">Oh, snapp!</span> Some error message.</p>
-                            </div>
-                            <div>
-                                <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Company</label>
-                                <input type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required>
-                            </div>
-                            <div>
-                                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone number</label>
-                                <input type="tel" id="phone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="123-45-678" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required>
-                            </div>
-                            <div>
-                                <label for="website" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Website URL</label>
-                                <input type="url" id="website" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="flowbite.com" required>
+                        <div class="mb-3 px-2 py-2">
+                            <div class=" z-0">
+                                <label for="feature_image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Article</label>
+
+                                <div class=" flex items-center justify-center text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <Editor  :api-key="tymcKey"
+                                             :init="tymcConfig"
+                                             initial-value="Welcome to TinyMCE!"
+                                             v-model="post.article_content"
+                                    />
+                                    <p v-if="errors && errors.feature_image"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
+                                        {{   errors.post.feature_image[0]}}
+                                    </p>
+                                </div>
+
+
+
                             </div>
 
                         </div>
+
 
 
                         <div class="px-2 py-2 flex justify-center items-center">
                             <button type="button" class="mx-2 text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
 
-                            <button type="submit" class="mx-2 text-white bg-red-700 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                            <button  @click.prevent="submit"  type="submit" class="mx-2 text-white bg-red-700 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
 
                         </div>
 
@@ -127,11 +129,12 @@
     import Breadcrumb from './DashboardLayouts/Breadcrumb.vue';
     import { toast } from 'vue3-toastify';
     import 'vue3-toastify/dist/index.css';
+    import Editor from '@tinymce/tinymce-vue'
 
 
     export default {
         name: "Tags",
-        components: { Link , layout , Footer ,DefaultSkeletons,GridLayout,Breadcrumb },
+        components: { Link , layout , Footer ,DefaultSkeletons,GridLayout,Breadcrumb,Editor },
         data(){
             return{
                 addNew :false ,
@@ -140,102 +143,174 @@
                 title : 'My Blog Admin v.1',
                 authUser : this.$page.props.auth.user,
                 skeletonName : "default" ,
-                loading : false ,
-                search_post_items:"" ,
+                loading : true ,
                 breadcrumb : 'Post|Add New' ,
                 posts : [] ,
-                post :{ id:'',title:'',category_id:"" },
-                categories:[{id:1,name:'Name 1'},{id:1,name:'Name 2'},{id:1,name:'Name 3'}],
-            }
-        },
-        methods:{
-            fetchTags(){
-                axios.post('api/fetch-posts',{search:this.search_post_items,page:this.page}).then( (response) =>{
-                    if( response.status ){
-                       this.posts =  response.data.data;
-                    }
-                });
-            },
-            deleteTag(id){
-                Swal.fire({
-                    title: 'Do you want to save the changes?',
-                    showCancelButton: true,
-                    confirmButtonText: 'Delete',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        axios.delete('api/post-destroy/'+id ,  {}).then( (respnse)=>{
-                            if( respnse.status == 200 ){
-                                toast.success('Tag Deleted Successfully');
-                                this.fetchTags();
-                            }
-                        }).catch( (error) =>{
-                            toast.warning('Unable to deleted post!');
-                        })
-                    }
-                })
-            },
-            editTag(editTag){
-
-            },
-            reset(){
-                this.category = { name:'',id:'',status:false } ;
-            },
-            saveNew(){
-                this.loading = true ;
-                axios.post( '/api/create-post' ,this.post ).then( (response )=>{
-                    if( response.status === 200 ){
-                        this.loading = false ;
-                        this.addNew = false;
-                        toast.success('New Tag Added!');
-                        this.fetchTags();
-                        this.reset();
-                    }
-                } ).catch( (error) =>{
-                    if(error && error.response && error.response.status === 422)
-                    {
-                        this.errors = error.response.data.errors;
-                    }
-
-                    toast.error('Something went wrong!');
-                });
-            },
-            updateTag(){
-                this.loading = true ;
-                axios.post( '/api/create-post' ,this.post ).then( (response )=>{
-                    if( response.status === 200 ){
-                        this.loading = false ;
-                        this.editTagFlag = false ; 
-                        toast.success('Tag Updated!');
-                        this.fetchTags();
-                    }
-                } ).catch( (error) =>{
-                    this.loading = false ;
-                    if(error && error.response && error.response.status === 422)
-                    {
-                        this.errors = error.response.error;
-                        console.log(  'error' ,  this.errors );
-                    }
-
-                    toast.error('Something went wrong!');
-                });
-            }
-
-
-        },
-        created(){
-            this.fetchTags();
-        },
-        watch:{
-            'search_post_items' : {
-                handler(){
-                    setTimeout( ()=>{
-                        this.fetchTags();
-                    },1000);
+                post :{ id:'',title:'',category_id:"",caption:"",feature_image:"",article_content:"" },
+                categories:[],
+                filelist: [], // Store our uploaded files,
+                media:[],
+                tymcKey:import.meta.env.VITE_TINYMCE_KEY,
+                tymcConfig:{
+                    toolbar_mode: 'sliding',
+                    plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+                    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+                    tinycomments_mode: 'embedded',
+                    tinycomments_author: 'Author name',
+                    mergetags_list: [
+                        { value: 'First.Name', title: 'First Name' },
+                        { value: 'Email', title: 'Email' },
+                    ],
+                    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
                 }
             }
         },
+        methods:{
+            fetchCategory(){
+              axios.post('/api/fetch-categories',{}).then( (resource) =>{
+                  if( resource.status === 200 ){
+                      this.categories = resource.data.data;
+                  }
+              });
+            },
+            onChange() {
+                this.filelist = [...this.$refs.file.files];
+                this.uploadFiles( this.filelist , 'image');
+                console.log(    this.filelist )
+            },
+            remove(i) {
+                this.filelist.splice(i, 1);
+            },
+            dragover(event) {
+                event.preventDefault();
+                // Add some visual fluff to show the user can drop its files
+                if (!event.currentTarget.classList.contains('bg-green-300')) {
+                    event.currentTarget.classList.remove('bg-gray-100');
+                    event.currentTarget.classList.add('bg-green-300');
+                }
+            },
+            dragleave(event) {
+                // Clean up
+                event.currentTarget.classList.add('bg-gray-100');
+                event.currentTarget.classList.remove('bg-green-300');
+            },
+            drop(event) {
+                event.preventDefault();
+                this.$refs.file.files = event.dataTransfer.files;
+                this.onChange(); // Trigger the onChange event manually
+                // Clean up
+                event.currentTarget.classList.add('bg-gray-100');
+                event.currentTarget.classList.remove('bg-green-300');
+            },
+            uploadFiles(files ,type) {
+                let file = files[0];
+                let form = new FormData;
+                let date = (new Date()).getTime();
+                form.append('file', file);
+                form.append('file_name', date);
+
+                axios.post( '/api/upload-file', form, {
+                    onUploadProgress: (event) => {
+                        // media.progress = Math.round(event.loaded * 100 / event.total);
+                    },
+                }).then(({data}) => {
+                    if( type === 'image' ){
+                        this.post.feature_image =data.url
+                        this.post.feature_image_name ='Image ' + data.file_name,
+                        this.media.push( {
+                            id:'',
+                            file_name:'Image ' + data.file_name,
+                            mime_type: data.type,
+                            url:data.url
+                        });
+                        this.user_img =data.url;
+                    }
+                    if( type === 'video'){
+                        this.media.push( {
+                            id:'',
+                            file_name:'Video '+ data.file_name,
+                            mime_type:data.type,
+                            url:data.url
+                        });
+                        this.user_video =data.url;
+                    }
+                }).catch((error) => {
+                    console.log(error)
+                    /*if (error?.response.status === 422) {
+                        this.errors[0]['user_img'] = error.response.data.errors.file[0];
+                        console.log(this.errors,error.response.data.errors);
+                    }*/
+                });
+            },
+            uploadMultipleFiles(files ,type) {
+                let file = files[0];
+                let form = new FormData;
+                let date = (new Date()).getTime();
+                form.append('file', file);
+                form.append('file_name', date);
+
+                axios.post( '/api/upload-file', form, {
+                    onUploadProgress: (event) => {
+                        // media.progress = Math.round(event.loaded * 100 / event.total);
+                    },
+                }).then(({data}) => {
+                    if( type === 'image' ){
+                        this.post.feature_image =data.url
+                        this.post.feature_image_name ='Image ' + data.file_name,
+                            this.media.push( {
+                                id:'',
+                                file_name:'Image ' + data.file_name,
+                                mime_type: data.type,
+                                url:data.url
+                            });
+                        this.user_img =data.url;
+                    }
+                    if( type === 'video'){
+                        this.media.push( {
+                            id:'',
+                            file_name:'Video '+ data.file_name,
+                            mime_type:data.type,
+                            url:data.url
+                        });
+                        this.user_video =data.url;
+                    }
+                }).catch((error) => {
+                    console.log(error)
+                    /*if (error?.response.status === 422) {
+                        this.errors[0]['user_img'] = error.response.data.errors.file[0];
+                        console.log(this.errors,error.response.data.errors);
+                    }*/
+                });
+            },
+            submit(){
+                this.loading =true;
+                axios.post('/api/create-post',this.post ).then((response)=>{
+                    if( response.status === 200  && response.data.status === 'success'){
+                        Swal.fire('Success','Post is added.','success');
+                        this.loading =false;
+                    }
+                    else{
+                        Swal.fire('Warning','Unable to add post.','error');
+                        this.loading =false;
+                    }
+                }).catch( (error)=>{
+                    if( error.response.status === 500 ){
+                        Swal.fire('Warning','Something went wrong!','error');
+                    }
+                    this.loading =false;
+                })
+            }
+
+        },
+        created(){
+            this.fetchCategory();
+        },
+        watch:{
+
+        },
         mounted(){
             initFlowbite();
+
             this.loading =true;
             setTimeout( ()=>{ this.loading =false } , 1000 )
         },
@@ -244,5 +319,15 @@
 </script>
 
 <style scoped>
-
+    [v-cloak] {
+        display: none;
+    }
+    @media (min-width: 1024px) {
+        #sample {
+            display: flex;
+            flex-direction: column;
+            place-items: center;
+            width: 100%;
+        }
+    }
 </style>

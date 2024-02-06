@@ -6,6 +6,7 @@ use App\Http\Resources\Dashboard\PostResource;
 use App\Http\Resources\PostViewResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class PostController extends Controller
@@ -33,7 +34,15 @@ class PostController extends Controller
     function  fetchAll(Request $request ){
         return PostResource::collection(
             Post::when( request('search') ,  function ($q){
-                    $q->where('name' ,'like', "%". request('search')."%" ) ;
+                    $q->where('title' ,'like', "%". request('search')."%" ) ;
+                    $q->orWhereHas('category', function ($q){
+                        $q->where('name' ,'like', "%". request('search')."%" );
+                    });
+                    $q->orWhereHas('postedByUser', function ($q){
+                        $q->where(DB::raw('CONCAT(first_name," ",last_name)'), 'like', '%' . request('search') . '%');
+                        $q->orWhere('first_name' ,'like','%'.request('search').'%');
+                        $q->orWhere('last_name' ,'like','%'.request('search').'%');
+                    });
                 })
                 ->orderBy('id','desc')
                 ->paginate(20)
@@ -69,6 +78,8 @@ class PostController extends Controller
 
         return response()->json(['data' => 'success']);
     }
+
+
 
 
 }

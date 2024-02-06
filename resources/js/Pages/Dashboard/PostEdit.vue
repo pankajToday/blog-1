@@ -206,6 +206,9 @@
                     toast.error('Something went wrong!');
                 });
             },
+            debounceSearch: _.debounce(function (e) {
+                this.fetch();
+            }, 1000)
 
         },
         created(){
@@ -214,11 +217,7 @@
         },
         watch:{
             'search_post_items' : {
-                handler(){
-                    setTimeout( ()=>{
-                        this.fetch();
-                    },1000);
-                }
+                handler: 'debounceSearch'
             }
         },
         mounted(){

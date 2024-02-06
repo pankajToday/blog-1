@@ -124,6 +124,29 @@ class HomeController extends Controller
         }
     }
 
+    public function store()
+    {
+        request()->validate([
+            'file' => ['mimes:jpeg,png,jpg', 'max:100000']
+        ], [
+            'max' => 'File cannot be larger than 10MB.'
+        ]);
+
+        $file = request()->file('file');
+        $filePath = request()->file_path . $file->getClientOriginalName();
+        Storage::disk('s3')->put($filePath, file_get_contents($file));
+
+        $url = env('AWS_URL').'/'.$filePath;
+        $filename = preg_replace('/\.\w+$/', '', $file->getClientOriginalName());
+
+        return [
+            'url' => $url,
+            'name' => $filename,
+            'extension' => $file->getClientOriginalExtension(),
+            'type' => in_array($file->getClientOriginalExtension() , ['mp4','avi','mpg','mov','flv','webm','mkv','wmv']) == true?'video':'image'
+        ];
+    }
+
 
 
 

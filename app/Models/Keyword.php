@@ -19,4 +19,5 @@ class Keyword extends Model
         return $this->belongsToMany(Post::class , 'post_keyword','keyword_id' ,'post_id')
             ->orderBy('keyword_id','asc');
     }
+
 }

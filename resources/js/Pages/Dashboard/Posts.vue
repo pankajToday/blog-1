@@ -18,7 +18,7 @@
                                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
                                         </svg>
                                     </div>
-                                    <input v-model="search_post_items" type="text" id="table-search" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items">
+                                    <input v-model="search" type="text" id="table-search" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Post">
                                 </div>
                             </div>
 
@@ -116,7 +116,7 @@
                 authUser : this.$page.props.auth.user,
                 skeletonName : "default" ,
                 loading : false ,
-                search_post_items:"" ,
+                search:"" ,
                 breadcrumb : 'All Posts' ,
                 posts : [] ,
                 post :{ id:'',title:'', },
@@ -125,7 +125,7 @@
         },
         methods:{
             fetchPosts(){
-                axios.post('api/fetch-posts',{search:this.search_post_items,page:this.page}).then( (response) =>{
+                axios.post('api/fetch-posts',{search:this.search,page:this.page}).then( (response) =>{
                     if( response.status ){
                        this.posts =  response.data.data;
                     }
@@ -193,7 +193,10 @@
 
                     toast.error('Something went wrong!');
                 });
-            }
+            },
+            debounceSearch: _.debounce(function (e) {
+                this.fetchPosts();
+            }, 1000)
 
 
         },
@@ -201,12 +204,8 @@
             this.fetchPosts();
         },
         watch:{
-            'search_post_items' : {
-                handler(){
-                    setTimeout( ()=>{
-                        this.fetchPosts();
-                    },1000);
-                }
+            'search' : {
+                handler: 'debounceSearch'
             }
         },
         mounted(){

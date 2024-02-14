@@ -28,9 +28,7 @@
                             <img :src="asset('project-assets/images/website/post-images/pxfuel (1).jpg')"
                                  alt="User Image" class="w-full rounded-md img-fluid" >
                         </div>
-                        <div class="mt-2">
-                            {{post.article_content}}
-                        </div>
+                        <div class="mt-2" v-html="post.article_content"></div>
 
                         <div  class="mt-2 block">
                             <div class="m-3">Tags</div>

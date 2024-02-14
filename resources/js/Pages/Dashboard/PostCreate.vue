@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <div class="p-4 sm:ml-64 mr-2">
+        <div class="p-4 sm:ml-40 mr-2">
             <div class="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-14">
                 <Breadcrumb :breadcrumb-items="breadcrumb" ></Breadcrumb>
 
@@ -106,7 +106,21 @@
 
                             <button  @click.prevent="submit"  type="submit" class="mx-2 text-white bg-red-700 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
 
+
+                            <button  @click.prevent="toggleDrawer"  type="button" class="mx-2 text-white bg-red-700 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Click Drawer</button>
                         </div>
+
+
+                        <!--<Drawer :is-open="isDrawerOpen" :speed="500">
+                            <div class="mt-2 flex justify-between items-center">
+                                <span class="px-2 py-2 mt-1 font-medium text-bold"> Add Elements</span>
+                                <button @click="closeDrawer" type="button" class="mx-2 mt-2 text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-2 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Close</button>
+                            </div>
+                            <div>
+                                <h2>Drawer Slot here</h2>
+                            </div>
+
+                        </Drawer>-->
 
                     </div>
 
@@ -130,11 +144,12 @@
     import { toast } from 'vue3-toastify';
     import 'vue3-toastify/dist/index.css';
     import Editor from '@tinymce/tinymce-vue'
-
+    import Drawer from "../../Components/Drawer.vue";
+    import postPageElements from './DashboardLayouts/AddPostPageElements.vue';
 
     export default {
         name: "Tags",
-        components: { Link , layout , Footer ,DefaultSkeletons,GridLayout,Breadcrumb,Editor },
+        components: { Link , layout , Footer ,DefaultSkeletons,GridLayout,Breadcrumb,Editor,Drawer,postPageElements },
         data(){
             return{
                 addNew :false ,
@@ -162,7 +177,8 @@
                         { value: 'Email', title: 'Email' },
                     ],
                     ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
-                }
+                },
+                isDrawerOpen: false,
             }
         },
         methods:{
@@ -299,11 +315,24 @@
                     }
                     this.loading =false;
                 })
-            }
+            },
+
+           /* toggleDrawer() {
+                let actionScreenX= window.innerWidth -20;
+                if( event.clientX >= actionScreenX ){
+                    this.isDrawerOpen = true;
+                }
+            },
+
+            closeDrawer() {
+                this.isDrawerOpen = false;
+            },*/
 
         },
         created(){
             this.fetchCategory();
+
+
         },
         watch:{
 
@@ -312,7 +341,12 @@
             initFlowbite();
 
             this.loading =true;
-            setTimeout( ()=>{ this.loading =false } , 1000 )
+            setTimeout( ()=>{ this.loading =false } , 1000 );
+
+           /* // manage Drawer Event.
+            window.addEventListener('mousemove', (event) => {
+                this.toggleDrawer();
+            });*/
         },
 
     }

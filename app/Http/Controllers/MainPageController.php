@@ -32,7 +32,7 @@ class MainPageController extends Controller
     }
 
     function viewPost($id){
-        $sliderPost =  Post::where('seo_url' ,$id)
+      return  $sliderPost =  Post::where('seo_url' ,$id)
             ->where('status',1)
             ->where('publish_status','published')
             ->orderBy('id','desc')

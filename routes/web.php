@@ -72,8 +72,7 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::get('/categories/{category}',[\App\Http\Controllers\CategoryController::class ,'index'])->name('dashboard.category');
     Route::get('/keywords/{keyword}',[\App\Http\Controllers\KeywordController::class ,'index'])->name('dashboard.keyword');
 
-    //post routes
-    Route::get('/post/{slug}',[\App\Http\Controllers\PostController::class ,'edit'])->name('post.show');
+
 
 });
 
@@ -89,7 +88,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('logout',[\App\Http\Controllers\AuthController::class ,'logout']);
 
     Route::get('/post-create', [\App\Http\Controllers\PostController::class ,'create']);
-    Route::get('/post/{id}', [\App\Http\Controllers\PostController::class ,'edit']);
+    //post routes
+    Route::get('/post/{slug}/edit',[\App\Http\Controllers\PostController::class ,'edit'])->name('post.show');
 
 
 });

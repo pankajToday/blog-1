@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('post_image')->nullable();
             $table->string('feature_image')->nullable();
             $table->text('post_url')->nullable();
+            $table->text('short_description')->nullable();
             $table->longText('article_content');
             $table->boolean('status')->default(1);
             $table->bigInteger('posted_by')->unsigned()->nullable();

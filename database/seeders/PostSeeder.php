@@ -52,6 +52,7 @@ class PostSeeder extends Seeder
                     'slug' => Str::slug( $faker->realText(50) ) ,
                     'seo_url' => Str::slug( $faker->realText(50) ) ,
                     'post_url' => Str::slug( $faker->realText(50) ) ,
+                    'short_description' => $faker->realText(1000,5) ,
                     'article_content' => $faker->realText(10000,5) ,
                     'post_image' =>$postImages[rand(0,13)],
                     'feature_image' =>$postImages[rand(0,13)],

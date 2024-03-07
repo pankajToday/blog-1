@@ -27,9 +27,10 @@ class HomeSectionPostResource extends JsonResource
             'feature_image' => $this->feature_image?url( $this->feature_image):"" ,
             'post_url' => $this->post_url ,
             'article_content' =>$this->article_content,
+            'short_description' =>$this->short_description,
             'posted_at' =>$this->created_at? Carbon::parse($this->created_at)->format('F-d Y H:i'):"",
-            'posted_by' =>$this->posted_by? $this->postedByUser->first_name .''.$this->postedByUser->last_name:"",
-            'posted_by_img' =>$this->posted_by? $this->postedByUser->user_img:"/zenBlog/img/person-1.jpg"
+            'posted_by' =>$this->posted_by ? $this->postedByUser->first_name .''.$this->postedByUser->last_name:"",
+            'posted_by_img' =>$this->posted_by? $this->postedByUser->user_img: url('/project-assets/images/user.jpg')
         ];
     }
 }

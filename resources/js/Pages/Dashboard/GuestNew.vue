@@ -1,6 +1,6 @@
 <template>
 <layout>
-    <div class="p-4 sm:ml-64 mr-2">
+    <div class="p-4 sm:ml-64 md:ml-auto mr-2">
         <div class="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-14">
             <Breadcrumb :breadcrumb-items="breadcrumb" ></Breadcrumb>
 
@@ -129,9 +129,7 @@
                                 <th scope="col" class="px-6 py-3">
                                     Category
                                 </th>
-                                <th scope="col" class="px-6 py-3">
-                                    content
-                                </th>
+
                                 <th scope="col" class="px-6 py-3">
                                     Status
                                 </th>
@@ -158,9 +156,7 @@
                                 <td class="">
                                     {{post.post_category.name}}
                                 </td>
-                                <td class="">
-                                    {{post.post_content}}
-                                </td>
+
                                 <td class="">
                                     {{post.status}}
                                 </td>

@@ -91,5 +91,5 @@ Route::group(['middleware' => 'auth'], function () {
     //post routes
     Route::get('/post/{slug}/edit',[\App\Http\Controllers\PostController::class ,'edit'])->name('post.show');
 
-
 });
+

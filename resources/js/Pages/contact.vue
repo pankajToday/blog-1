@@ -148,12 +148,10 @@
 <script>
 import WebHeader from "@/Components/Website/Menus/WebHeader.vue";
 import Dashboard from "@/Pages/Dashboard.vue";
-import IdeasContent from "@/Pages/IdeasContent.vue";
-
 
 export default {
     name: "contact",
-    components: { IdeasContent, Dashboard, WebHeader},
+    components: {  Dashboard, WebHeader},
 
 }
 </script>

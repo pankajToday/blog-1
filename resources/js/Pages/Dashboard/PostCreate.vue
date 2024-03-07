@@ -1,6 +1,6 @@
 <template>
     <layout>
-        <div class="p-4 sm:ml-40 mr-2">
+        <div class="p-4 sm:ml-40 md:ml-1 mr-2">
             <div class="p-4 border-2 border-gray-200 rounded-lg dark:border-gray-700 mt-14">
                 <Breadcrumb :breadcrumb-items="breadcrumb" ></Breadcrumb>
 
@@ -78,49 +78,22 @@
 
                         </div>
 
-                        <div class="mb-3 px-2 py-2">
-                            <div class=" z-0">
-                                <label for="feature_image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Article</label>
-
-                                <div class=" flex items-center justify-center text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <Editor  :api-key="tymcKey"
-                                             :init="tymcConfig"
-                                             initial-value="Welcome to TinyMCE!"
-                                             v-model="post.article_content"
-                                    />
+                        <div  class="mb-3 px-2 py-2">
+                            <div   class="">
+                                <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Article</label>
+                                    <div class="w-full border border-gray-50" id="summernote"></div>
                                     <p v-if="errors && errors.feature_image"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
                                         {{   errors.post.feature_image[0]}}
                                     </p>
-                                </div>
-
-
-
                             </div>
-
                         </div>
 
 
 
                         <div class="px-2 py-2 flex justify-center items-center">
                             <button type="button" class="mx-2 text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
-
                             <button  @click.prevent="submit"  type="submit" class="mx-2 text-white bg-red-700 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-
-
-                            <button  @click.prevent="toggleDrawer"  type="button" class="mx-2 text-white bg-red-700 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Click Drawer</button>
                         </div>
-
-
-                        <!--<Drawer :is-open="isDrawerOpen" :speed="500">
-                            <div class="mt-2 flex justify-between items-center">
-                                <span class="px-2 py-2 mt-1 font-medium text-bold"> Add Elements</span>
-                                <button @click="closeDrawer" type="button" class="mx-2 mt-2 text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-2 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Close</button>
-                            </div>
-                            <div>
-                                <h2>Drawer Slot here</h2>
-                            </div>
-
-                        </Drawer>-->
 
                     </div>
 
@@ -143,13 +116,15 @@
     import Breadcrumb from './DashboardLayouts/Breadcrumb.vue';
     import { toast } from 'vue3-toastify';
     import 'vue3-toastify/dist/index.css';
-    import Editor from '@tinymce/tinymce-vue'
     import Drawer from "../../Components/Drawer.vue";
     import postPageElements from './DashboardLayouts/AddPostPageElements.vue';
+    import SummernoteEditor from 'vue3-summernote-editor';
+
+
 
     export default {
-        name: "Tags",
-        components: { Link , layout , Footer ,DefaultSkeletons,GridLayout,Breadcrumb,Editor,Drawer,postPageElements },
+        name: "PostCreate",
+        components: { Link , layout , Footer ,DefaultSkeletons,GridLayout,Breadcrumb,Drawer,postPageElements,SummernoteEditor },
         data(){
             return{
                 addNew :false ,
@@ -161,23 +136,10 @@
                 loading : true ,
                 breadcrumb : 'Post|Add New' ,
                 posts : [] ,
-                post :{ id:'',title:'',category_id:"",caption:"",feature_image:"",article_content:"" },
+                post :{ id:'',title:'',category_id:"",caption:"",feature_image:"",article_content:"this is my first content.." },
                 categories:[],
                 filelist: [], // Store our uploaded files,
                 media:[],
-                tymcKey:import.meta.env.VITE_TINYMCE_KEY,
-                tymcConfig:{
-                    toolbar_mode: 'sliding',
-                    plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
-                    toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
-                    tinycomments_mode: 'embedded',
-                    tinycomments_author: 'Author name',
-                    mergetags_list: [
-                        { value: 'First.Name', title: 'First Name' },
-                        { value: 'Email', title: 'Email' },
-                    ],
-                    ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
-                },
                 isDrawerOpen: false,
             }
         },
@@ -300,6 +262,8 @@
             },
             submit(){
                 this.loading =true;
+
+                this.post.article_content = $('#summernote').summernote('code');
                 axios.post('/api/create-post',this.post ).then((response)=>{
                     if( response.status === 200  && response.data.status === 'success'){
                         Swal.fire('Success','Post is added.','success');
@@ -317,39 +281,87 @@
                 })
             },
 
-           /* toggleDrawer() {
-                let actionScreenX= window.innerWidth -20;
-                if( event.clientX >= actionScreenX ){
-                    this.isDrawerOpen = true;
-                }
-            },
-
-            closeDrawer() {
-                this.isDrawerOpen = false;
-            },*/
 
         },
         created(){
-            this.fetchCategory();
+            setTimeout(()=>{
+              $('#summernote').summernote({
+                    placeholder: 'type your post.',
+                    spellCheck:true,
+                    width:'100%',
+                    tabDisable: false,
+                    dialogsInBody: true,// Dialogs can be placed in body, not within Summernote. If you’re using Summernote within a modal dialog, please set this option as true
+                    addDefaultFonts:false,
+                    toolbar: [
+                        ['style', ['style','family']],
+                        ['font', ['bold','italic','strikethrough','superscript', 'underline', 'clear','fontname','fontsize','fontsizeunitck','color','forecolor',
+                            'backcolor']],
+                        ['color', ['color']],
+                        ['para', ['ul', 'ol', 'paragraph','height']],
+                        ['table', ['table']],
+                        ['insert', ['link', 'picture', 'video','table','hr']],
+                        ['view', [ 'codeview']]
+                    ],
+                  popover: {
+                      image: [
+                          ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
+                          ['float', ['floatLeft', 'floatRight', 'floatNone']],
+                          ['remove', ['removeMedia']]
+                      ],
+                      link: [
+                          ['link', ['linkDialogShow', 'unlink']]
+                      ],
+                      table: [
+                          ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
+                          ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
+                      ],
+                      air: [
+                          ['color', ['color']],
+                          ['font', ['bold', 'underline', 'clear']],
+                          ['para', ['ul', 'paragraph']],
+                          ['table', ['table']],
+                         ]
+                      },
 
+                  });
 
+              $(".note-editable").css('textAlign','left');
+            },2000)
         },
         watch:{
 
         },
         mounted(){
             initFlowbite();
-
+            this.fetchCategory();
             this.loading =true;
-            setTimeout( ()=>{ this.loading =false } , 1000 );
+            setTimeout( ()=>{ this.loading =false ;} , 1000 );
 
            /* // manage Drawer Event.
             window.addEventListener('mousemove', (event) => {
                 this.toggleDrawer();
             });*/
         },
+        setup(){
+            let script1 = document.createElement('script');
+            script1.setAttribute('src', 'https://code.jquery.com/jquery-3.4.1.slim.min.js')
+            document.head.appendChild(script1)
+
+            const script2 = document.createElement('script');
+            script2.setAttribute('src', 'https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js')
+            document.head.appendChild(script2)
+
+            const styleFile1 = document.createElement('link');
+            styleFile1.setAttribute('href', 'https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css')
+            styleFile1.setAttribute('rel', 'stylesheet')
+            document.head.appendChild(styleFile1)
+
+        },
+
 
     }
+
+
 </script>
 
 <style scoped>
@@ -357,11 +369,11 @@
         display: none;
     }
     @media (min-width: 1024px) {
-        #sample {
-            display: flex;
-            flex-direction: column;
-            place-items: center;
-            width: 100%;
-        }
+
+    }
+    .note-editable p {
+        text-align: left !important;
+        /*height: 350px !important;*/
+
     }
 </style>

@@ -53,4 +53,15 @@ class TagController extends Controller
         return response()->json([ 'data' => 'success' ]);
 
     }
+
+
+    function tagSearch(Request $request){
+       return $tags = Tag::when( request('search') ,  function ($q){
+           $q->where('name' ,'like', "%". request('search')."%" ) ;
+       })
+           ->orderBy('id','desc')
+           ->take(20)
+           ->get();
+
+    }
 }

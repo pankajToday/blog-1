@@ -15,85 +15,131 @@
                                 class="px-2.5 py-2 mr-2 mb-2 text-white border border-blue-500 bg-blue-400 hover:bg-gray-500 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm text-center dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-500 dark:focus:ring-gray-800">Back</a>
                         </div>
 
-
-                        <div class="grid gap-6 mb-6 px-2 py-2 md:grid-cols-3">
-                            <div class="relative z-0">
-                                <select v-model="post.category_id" id="category" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer">
-                                    <option value="" selected>Choose a Category</option>
-                                    <option :value="item.id" v-for="item in categories">{{item.name}}</option>
-                                </select>
-
-                                <p v-if="errors && errors.category_id"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
-                                    {{   errors.post.category_id[0]}}
-                                </p>
-                            </div>
-
-                            <div class="relative z-0">
-                                <input v-model="post.title"  type="text" id="post_title" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
-                                <label for="post_title" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Title <span class="text-red-500 px-2 text-3 font-bold ">*</span> </label>
+                        <div class="grid gap-6 mb-6 px-2 py-2 md:grid-cols-1">
+                            <div class="">
+                                <label for="post_title" class="w-full py-2 px-2 rounded-md text-sm text-gray-900 border-gray-300">Title <span class="text-red-500 px-2 text-3 font-bold ">*</span> </label>
+                                <input v-model="post.title"  type="text" id="post_title" class="w-full py-2 px-2 rounded-md text-sm text-gray-900 border-gray-300" placeholder="Title" />
                                 <p v-if="errors && errors.title"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
                                     {{   errors.post.title[0]}}
                                 </p>
                             </div>
 
-                            <div class="relative z-0">
-                                <input v-model="post.caption"  type="text" id="post_caption" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder="" />
-                                <label for="post_caption" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Caption </label>
+                            <div class="">
+                                <label for="post_caption" class="w-full py-2 px-2 rounded-md text-sm text-gray-900 border-gray-300">Caption </label>
+                                <input v-model="post.caption"  type="text" id="post_caption" class="w-full py-2 px-2 rounded-md text-sm text-gray-900 border-gray-300" placeholder="Caption" />
                                 <p v-if="errors && errors.caption"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
                                     {{   errors.post.caption[0]}}
                                 </p>
                             </div>
 
-                        </div>
+                            <div class="">
+                                <label for="short_description" class="w-full py-2 px-2 rounded-md text-sm text-gray-900 border-gray-300">Short Description </label>
+                                <textarea v-model="post.short_description" rows="7" cols="10" id="short_description" class="w-full py-2 px-2 rounded-md text-sm text-gray-900 border-gray-300" placeholder="Short description" ></textarea>
+                                <p v-if="errors && errors.short_description"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
+                                    {{   errors.post.short_description[0]}}
+                                </p>
+                            </div>
 
-                        <div class="grid gap-6 mb-6 px-2 py-2 md:grid-cols-3">
-                            <div class="relative z-0">
+                            <div class="">
                                 <label for="feature_image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Feature Image</label>
 
-                                <div class=" flex items-center justify-center text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <div class="" @dragover="dragover" @dragleave="dragleave" @drop="drop">
-                                        <input type="file" multiple name="fields[feature_image][]" id="feature_image"
-                                               class="w-px h-px opacity-0 overflow-hidden absolute" @change="onChange" ref="file" accept=".pdf,.jpg,.jpeg,.png" />
-
-                                        <label for="feature_image" class="px-3 py-2 block cursor-pointer">
-                                            <div>
-                                                <span class="underline">click here</span> or drop files in here
-                                            </div>
-                                        </label>
-                                        <ul class="mt-4" v-if="this.filelist.length" v-cloak >
-                                            <li class="text-sm p-1" v-for="file in filelist">
+                                <div class="grid grid-cols-2 text-center bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <div class="">
+                                        <div class="mt-4 flex items-center justify-center border border-gray-200"  v-if="this.filelist.length" v-cloak >
+                                            <div v-if="post && post.feature_image" class="text-sm p-1" >
                                                 <img :src="post.feature_image" class="w-[200px] h-[200px] m-2">
-                                               {{file.name}}<button class="ml-2" type="button" @click="remove(filelist.indexOf(file))" title="Remove file">remove</button>
-                                            </li>
-                                        </ul>
+                                                <p v-if="post && post.feature_image_name" class="w-full flex justify-center items-center px-2 py-2 my-2 " > {{post.feature_image_name}}</p>
+                                                <button  @click="remove"  class="ml-2 px-2 py-2 rounded-md border border-gray-200 bg-red-500 text-white hover:bg-gray-300 hover:text-black" type="button" title="Remove file">Remove</button>
+                                            </div>
+                                        </div>
+                                        <div v-else class="flex items-center justify-center">
+                                            <img :src="asset('project-assets/images/default-featured-image.png')" class="w-[200px] h-[200px] m-2">
+                                        </div>
                                     </div>
-                                    <p v-if="errors && errors.feature_image"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
-                                        {{   errors.post.feature_image[0]}}
-                                    </p>
+                                    <div  @dragover="dragover" @dragleave="dragleave" @drop="drop" class="flex items-center justify-center border border-gray-200 rounded-md">
+                                        <div class="w-full">
+                                            <input type="file" multiple name="fields[feature_image][]" id="feature_image"
+                                                   class="w-px h-px opacity-0 overflow-hidden absolute" @change="onChange" ref="file" accept=".pdf,.jpg,.jpeg,.png" />
+
+                                            <label for="feature_image" class="w-full px-3 py-2 block cursor-pointer">
+                                                <div>
+                                                    <span class="underline">click here</span> or drop files in here
+                                                </div>
+                                            </label>
+                                        </div>
+                                        <p v-if="errors && errors.feature_image"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
+                                            {{   errors.post.feature_image[0]}}
+                                        </p>
+                                    </div>
                                 </div>
-
-
-
                             </div>
 
-                        </div>
-
-                        <div  class="mb-3 px-2 py-2">
                             <div   class="">
                                 <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Article</label>
-                                    <div class="w-full border border-gray-50" id="summernote"></div>
-                                    <p v-if="errors && errors.feature_image"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
-                                        {{   errors.post.feature_image[0]}}
-                                    </p>
+                                <SummernoteEditor :editorContent="post.article_content"  class="" />
+                                <p v-if="errors && errors.feature_image"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
+                                    {{   errors.post.feature_image[0]}}
+                                </p>
                             </div>
+
+
+                            <div   class="">
+                                <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tags</label>
+
+                                <Multiselect
+                                        mode="tags"
+                                        v-model="post.tags"
+                                        placeholder="search tags"
+                                        :close-on-select="false"
+                                        :filter-results="false"
+                                        :min-chars="3"
+                                        :resolve-on-load="false"
+                                        :delay="0"
+                                        :searchable="true"
+                                        :options="async (q)=>{
+                                           await fetchTags(q); return await  tagList;
+                                          }"
+                                />
+
+                                <p v-if="errors && errors.tags"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
+                                    {{   errors.post.tags[0]}}
+                                </p>
+                            </div>
+
+                            <div   class="">
+                                <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keywords</label>
+
+                                <Multiselect
+                                        mode="tags"
+                                        v-model="post.keywords"
+                                        placeholder="search keywords"
+                                        :close-on-select="false"
+                                        :filter-results="false"
+                                        :min-chars="3"
+                                        :resolve-on-load="false"
+                                        :delay="0"
+                                        :searchable="true"
+                                        :options="async (q)=>{
+                                           await fetchkeywords(q); return await  keywordList;
+                                          }"
+                                />
+
+                                <p v-if="errors && errors.keywords"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
+                                    {{   errors.post.keywords[0]}}
+                                </p>
+                            </div>
+
+
+
                         </div>
 
 
+                            <div class="px-2 py-2 flex justify-center items-center">
+                                <button type="button" class="mx-2 text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
+                                <button  @click.prevent="submit"  type="submit" class="mx-2 text-white bg-red-700 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
+                            </div>
 
-                        <div class="px-2 py-2 flex justify-center items-center">
-                            <button type="button" class="mx-2 text-white bg-blue-500 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Cancel</button>
-                            <button  @click.prevent="submit"  type="submit" class="mx-2 text-white bg-red-700 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Save</button>
-                        </div>
+
 
                     </div>
 
@@ -104,6 +150,7 @@
     </layout>
 
 </template>
+
 
 <script>
     import { Link } from '@inertiajs/vue3';
@@ -118,13 +165,15 @@
     import 'vue3-toastify/dist/index.css';
     import Drawer from "../../Components/Drawer.vue";
     import postPageElements from './DashboardLayouts/AddPostPageElements.vue';
-    import SummernoteEditor from 'vue3-summernote-editor';
-
+    import SummernoteEditor from '../../Components/Editor/SummernoteEditor.vue';
+    import Multiselect from '@vueform/multiselect'
+    import  '@vueform/multiselect/themes/default.css';
 
 
     export default {
         name: "PostCreate",
-        components: { Link , layout , Footer ,DefaultSkeletons,GridLayout,Breadcrumb,Drawer,postPageElements,SummernoteEditor },
+        components: { Link , layout , Footer ,DefaultSkeletons,GridLayout,Breadcrumb,Drawer,postPageElements,SummernoteEditor ,
+            Multiselect },
         data(){
             return{
                 addNew :false ,
@@ -135,29 +184,47 @@
                 skeletonName : "default" ,
                 loading : true ,
                 breadcrumb : 'Post|Add New' ,
-                posts : [] ,
-                post :{ id:'',title:'',category_id:"",caption:"",feature_image:"",article_content:"this is my first content.." },
+                post :{
+                    id:'',title:'',category_id:[1,4,6],caption:"",feature_image:"",feature_image_name:'@credit',article_content:"this is my first content..",
+                    short_description:"", tags:[] ,keywords:[], meta_description:""
+                },
                 categories:[],
-                filelist: [], // Store our uploaded files,
+                filelist: "", // Store our uploaded files,
                 media:[],
                 isDrawerOpen: false,
+                tagList:[],
+                keywordList:[],
+
             }
         },
         methods:{
             fetchCategory(){
               axios.post('/api/fetch-categories',{}).then( (resource) =>{
                   if( resource.status === 200 ){
-                      this.categories = resource.data.data;
+                      resource.data.data.forEach((item,index)=>{
+                          this.categories.push({label:item.name,value:item.id})
+                      });
                   }
               });
             },
             onChange() {
-                this.filelist = [...this.$refs.file.files];
+                this.filelist = this.$refs.file.files;
                 this.uploadFiles( this.filelist , 'image');
-                console.log(    this.filelist )
+
             },
             remove(i) {
-                this.filelist.splice(i, 1);
+               // this.filelist.splice(i, 1);
+                let payload ={post_id:'',fileURL : this.post.feature_image};
+                axios.post('/api/remove-uploaded-file',payload).then((resource)=>{
+                    if(resource.status === 200 && resource.data.status === 'success'){
+                        this.post.feature_image_name ="@credit";
+                        this.post.feature_image="";
+                    }
+
+                }).catch( (error)=>{
+                    console.log(error)
+                })
+
             },
             dragover(event) {
                 event.preventDefault();
@@ -260,10 +327,39 @@
                     }*/
                 });
             },
-            submit(){
-                this.loading =true;
+            async fetchTags(query){
+               let payload={ search :query};
+               this.tagList =[];
+               await axios.post('/api/tags-search', payload).then( (resource) =>{
+                  if( resource.status === 200 ){
+                      resource.data.forEach((d,i)=>{
+                          this.tagList[i]={label:d.name,value:d.id};
+                      });
+                      return this.tagList;
+                  }
+              }).catch((error)=>{
 
-                this.post.article_content = $('#summernote').summernote('code');
+              })
+
+            },
+            async fetchkeywords(query){
+                let payload={ search :query};
+                this.keywordList =[];
+                await axios.post('/api/keyword-search', payload).then( (resource) =>{
+                    if( resource.status === 200 ){
+                        resource.data.forEach((d,i)=>{
+                            this.keywordList[i]={label:d.name,value:d.id};
+                        });
+                        return this.keywordList;
+                    }
+                }).catch((error)=>{
+
+                })
+
+            },
+            submit(){
+
+                this.loading =true;
                 axios.post('/api/create-post',this.post ).then((response)=>{
                     if( response.status === 200  && response.data.status === 'success'){
                         Swal.fire('Success','Post is added.','success');
@@ -284,49 +380,11 @@
 
         },
         created(){
-            setTimeout(()=>{
-              $('#summernote').summernote({
-                    placeholder: 'type your post.',
-                    spellCheck:true,
-                    width:'100%',
-                    tabDisable: false,
-                    dialogsInBody: true,// Dialogs can be placed in body, not within Summernote. If you’re using Summernote within a modal dialog, please set this option as true
-                    addDefaultFonts:false,
-                    toolbar: [
-                        ['style', ['style','family']],
-                        ['font', ['bold','italic','strikethrough','superscript', 'underline', 'clear','fontname','fontsize','fontsizeunitck','color','forecolor',
-                            'backcolor']],
-                        ['color', ['color']],
-                        ['para', ['ul', 'ol', 'paragraph','height']],
-                        ['table', ['table']],
-                        ['insert', ['link', 'picture', 'video','table','hr']],
-                        ['view', [ 'codeview']]
-                    ],
-                  popover: {
-                      image: [
-                          ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter', 'resizeNone']],
-                          ['float', ['floatLeft', 'floatRight', 'floatNone']],
-                          ['remove', ['removeMedia']]
-                      ],
-                      link: [
-                          ['link', ['linkDialogShow', 'unlink']]
-                      ],
-                      table: [
-                          ['add', ['addRowDown', 'addRowUp', 'addColLeft', 'addColRight']],
-                          ['delete', ['deleteRow', 'deleteCol', 'deleteTable']],
-                      ],
-                      air: [
-                          ['color', ['color']],
-                          ['font', ['bold', 'underline', 'clear']],
-                          ['para', ['ul', 'paragraph']],
-                          ['table', ['table']],
-                         ]
-                      },
-
-                  });
-
-              $(".note-editable").css('textAlign','left');
-            },2000)
+            this.post.category_id=[1,5];
+            // Get Summernote data.
+            eventBus.$on('editorContents', (data)=> {
+               this.post.article_content = data ;
+            });
         },
         watch:{
 
@@ -334,6 +392,7 @@
         mounted(){
             initFlowbite();
             this.fetchCategory();
+            this.fetchTags();
             this.loading =true;
             setTimeout( ()=>{ this.loading =false ;} , 1000 );
 
@@ -342,23 +401,6 @@
                 this.toggleDrawer();
             });*/
         },
-        setup(){
-            let script1 = document.createElement('script');
-            script1.setAttribute('src', 'https://code.jquery.com/jquery-3.4.1.slim.min.js')
-            document.head.appendChild(script1)
-
-            const script2 = document.createElement('script');
-            script2.setAttribute('src', 'https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js')
-            document.head.appendChild(script2)
-
-            const styleFile1 = document.createElement('link');
-            styleFile1.setAttribute('href', 'https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css')
-            styleFile1.setAttribute('rel', 'stylesheet')
-            document.head.appendChild(styleFile1)
-
-        },
-
-
     }
 
 

@@ -3,14 +3,16 @@
         <div class="container" >
             <div class="row g-5">
                 <div id="left-block" class=" col-lg-4">
-                    <div v-if="leftSidePosts && leftSidePosts.data && leftSidePosts.data.length"
-                         v-for="(leftSidePost ,leftIndex) in leftSidePosts.data" :key='leftIndex' class="post-entry-1 lg">
+                    <div class="w-full flex flex-center justify-center px-2 py-1 my-2 text-wrap text-xl rounded-md border border-gray-300 bg-gray-200  text-slate-950 font-semibold text-center">Weekend Post</div>
+                    <div v-if="weekendPosts && weekendPosts.data && weekendPosts.data.length"
+                         v-for="(leftSidePost ,leftIndex) in weekendPosts.data" :key='leftIndex'
+                         class="mb-3 border-b border-gray-200 pb-2">
 
                         <div class="post-meta">
-                            <span class="date font-medium">{{leftSidePost.category_name}}</span>
+                            <span class="font-medium">{{leftSidePost.category_name}}</span>
                             <span class="mx-1">&bullet;</span>
                             <h2 >
-                                <a class="text-[1.9rem]" :href="'post/'+leftSidePost.seo_url" target="_blank">{{leftSidePost.title}}</a>
+                                <a class="text-xl" :href="'post/'+leftSidePost.seo_url" target="_blank">{{leftSidePost.title}}</a>
                             </h2>
                         </div>
 
@@ -24,7 +26,7 @@
                             <div class="d-flex align-items-center author">
                                 <div class="inline-flex">
                                     <div class="photo">
-                                        <img :src="leftSidePost.posted_by_img?leftSidePost.posted_by_img:asset('/project-assets/images/user.jpg')" alt="User Image" class="img-fluid">
+                                        <img :src="leftSidePost.posted_by_img?leftSidePost.posted_by_img:asset('project-assets/images/user.jpg')" alt="User Image" class="img-fluid">
                                     </div>
                                     <div class="name mt-[13px]">
                                         <h3 class="m-0 p-0">{{leftSidePost.posted_by}}</h3>
@@ -34,14 +36,16 @@
                             <span class="flex items-center">{{leftSidePost.posted_at}}</span>
                         </div>
                     </div>
+                    <div v-else class="px-2 py-2 text-xs">No post found!</div>
                 </div>
 
                 <div id="center-block" class=" col-lg-8">
                     <div class="row g-5">
 
                       <div id="center-block-1" class="col-lg-4 border-start custom-border">
-                            <div  v-if="centerBlockPosts && centerBlockPosts.A && centerBlockPosts.A.length"
-                                  v-for="(blockA ,centerIndexA ) in centerBlockPosts.A" :key='centerIndexA' class="post-entry-1">
+                          <div class="w-full flex flex-center justify-center px-2 py-1 my-2 text-wrap text-xl rounded-md border border-gray-300 bg-gray-200  text-slate-950 font-semibold text-center">Top Treading</div>
+                            <div  v-if="topTrendingPosts && topTrendingPosts.length"
+                                  v-for="(blockA ,centerIndexA ) in topTrendingPosts" :key='centerIndexA' class="mb-3 border-b border-gray-200 pb-2">
                                 <a  :href="'/post/'+blockA.seo_url" target="_blank" >
                                     <img :src="blockA.post_image ? blockA.post_image : asset('zenBlog/img/post-landscape-2.jpg')"
                                          alt="post image" class="img-fluid">
@@ -55,11 +59,13 @@
                                     <a :href="'/post/'+blockA.seo_url"  class="text-[1.8rem] test" target="_blank">{{blockA?blockA.title:""}}</a>
                                 </h2>
                             </div>
+                            <div v-else class="px-2 py-2 text-xs">No post found!</div>
                         </div>
 
-                        <div id="center-block-2" class=" col-lg-4 border-start custom-border">
-                            <div v-if="centerBlockPosts && centerBlockPosts.B && centerBlockPosts.B.length"
-                                 v-for="(blockB ,centerIndexB ) in centerBlockPosts.B"  :key='centerIndexB' class="post-entry-1">
+                      <div id="center-block-2" class=" col-lg-4 border-start custom-border">
+                          <div class="w-full flex flex-center justify-center px-2 py-1 my-2 text-wrap text-xl rounded-md border border-gray-300 bg-gray-200  text-slate-950 font-semibold text-center">Latest</div>
+                            <div v-if="latestPosts  && latestPosts.length"
+                                 v-for="(blockB ,centerIndexB ) in latestPosts"  :key='centerIndexB' class="mb-3 border-b border-gray-200 pb-2">
                                 <a  :href="'/post/'+blockB.seo_url" target="_blank" >
                                     <img :src="blockB.post_image ? blockB.post_image : asset('zenBlog/img/post-landscape-2.jpg')"
                                          alt="post image" class="img-fluid">
@@ -73,13 +79,14 @@
                                     <a :href="'/post/'+blockB.seo_url"  class="text-[1.8rem]" target="_blank">{{blockB?blockB.title:""}}</a>
                                 </h2>
                             </div>
+                          <div v-else class="px-2 py-2 text-xs">No post found!</div>
                         </div>
 
                         <!-- Trending Section -->
-                        <div id="center-block-3" class="col-lg-4">
-                            <TrendingPostComp />
-                        </div>
-                        <!-- End Trending Section -->
+                      <div id="center-block-3" class="col-lg-4">
+                        <TrendingPostComp />
+                      </div>
+                    <!-- End Trending Section -->
                     </div>
                 </div>
             </div> <!-- End .row -->
@@ -96,27 +103,36 @@
         components: {TrendingPostComp },
         data: () => ({
             leftSidePosts:[],
-            centerBlockPosts:[],
+            latestPosts:[],
+            topTrendingPosts:[],
+            weekendPosts:[],
             trendingPosts:[],
         }),
         methods:{
             fetch(){
                 const payload ={}
-                axios.post('/api/home/post/left-side/4', payload).then(response => {
+                axios.post('/api/home/post/weekend/8', payload).then(response => {
                     if(response.status === 200) {
-                        this.leftSidePosts = response.data;
+                        this.weekendPosts = response.data;
                     }
                 }).catch((e)=>{
                     console.log('Left Side Post Issue ',e.response.data)
                 })
 
-                axios.post('/api/home/post/left-side/8', payload).then(response => {
+                axios.post('/api/home/post/trending/8', payload).then(response => {
                     if(response.status === 200) {
-                        this.centerBlockPosts['A'] = response.data.data.slice(0,4);
-                        this.centerBlockPosts['B'] = response.data.data.slice(4,8);
+                        this.topTrendingPosts = response.data.data;
                     }
                 }).catch((e)=>{
                     console.log('Center Side Post Issue ',e.response.data)
+                })
+
+                axios.post('/api/home/post/latest/8', payload).then(response => {
+                    if(response.status === 200) {
+                        this.latestPosts = response.data.data;
+                    }
+                }).catch((e)=>{
+                    console.log('Center latest Post Issue ',e.response.data)
                 })
             },
 

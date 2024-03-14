@@ -8,7 +8,10 @@ module.exports = {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/js/**/*.vue',
-        "./node_modules/flowbite/**/*.js"
+        "./node_modules/flowbite/**/*.js",
+        './vueform.config.js', // or where `vueform.config.js` is located. Change `.js` to `.ts` if required.
+        './node_modules/@vueform/vueform/themes/tailwind/**/*.vue',
+        './node_modules/@vueform/vueform/themes/tailwind/**/*.js',
     ],
     theme: {
         container: {
@@ -202,6 +205,7 @@ module.exports = {
         "disabled",
     ],
     plugins: [
-        require('flowbite/plugin')
+        require('flowbite/plugin'),
+        require('@vueform/vueform/tailwind'),
     ]
 };

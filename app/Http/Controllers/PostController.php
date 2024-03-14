@@ -61,13 +61,16 @@ class PostController extends Controller
         $post = new  Post();
 
         $post->title = $request->title;
-        $post->category_id   = $request->category_id ;
+        $post->category_id   = 1;//$request->category_id ;
         $post->uid   = rand(100,999).date('ymdis') ;
         $post->caption   = $request->caption ;
+        $post->short_description   =  $request->short_description ;
         $post->slug   = Str::slug($request->title );
         $post->seo_url   =  Str::slug($request->title ) ;
         $post->post_image   =  $request->feature_image ;
+        $post->post_image_name = $request->feature_image_name ;
         $post->feature_image   = $request->feature_image ;
+        $post->feature_image_name   = $request->feature_image_name ;
         $post->post_url   = Str::slug($request->title ) ;
         $post->article_content   = $request->article_content ;
         $post->status   = 1 ;
@@ -78,7 +81,10 @@ class PostController extends Controller
 
         $post->save() ;
 
-         return response()->json(['data' => 'success']);
+        $post->postTags()->sync($request->tags);
+        $post->postKeywords()->sync($request->keywords);
+
+         return response()->json(['data' => 'post saved' ,'status'=>'success']);
 
 
     }

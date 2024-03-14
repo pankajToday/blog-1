@@ -24,6 +24,7 @@
                     </div>
                 </a>
             </li>
+            <li v-else class="px-2 py-2 text-xs">No post found!</li>
 
         </ul>
     </div>
@@ -41,7 +42,7 @@
         }),
         methods:{
             fetch(){
-                axios.post('/api/home/post/left-side/8', {}).then(response => {
+                axios.post('/api/home/post/side-trending/8', {}).then(response => {
                     if(response.status === 200) {
                         this.trendingPosts = response.data.data;
                     }

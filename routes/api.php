@@ -33,7 +33,7 @@ Route::post('/fmc-save-token', [App\Http\Controllers\FmNotificationController::c
 // Prefix -> Home only for all type of Home page API. that will be available for all users.
 Route::group(['prefix' => 'home'],function ($q){
     Route::post('/slider-post' , [\App\Http\Controllers\MainPageController::class ,'fetchSliderPost'])->name('main.slider-post');
-    Route::post('/post/left-side/{limit}' , [\App\Http\Controllers\MainPageController::class ,'fetchLeftSidePost'])->name('main.left-side-post');
+    Route::post('/post/{side}/{limit}' , [\App\Http\Controllers\MainPageController::class ,'fetchSidePost'])->name('main.side-post');
     Route::post('/category-list',[\App\Http\Controllers\MainPageController::class ,'categoryList']);
     Route::post('/recent-post',[\App\Http\Controllers\MainPageController::class ,'recentPost']);
     Route::post('/category/{name}',[\App\Http\Controllers\MainPageController::class ,'fetchPostByCategory']);
@@ -63,10 +63,12 @@ Route::middleware('auth:sanctum')->group( function () {
 
     Route::post('/create-tag',[\App\Http\Controllers\TagController::class ,'store']);
     Route::post('/fetch-tags',[\App\Http\Controllers\TagController::class ,'fetchAll']);
+    Route::post('/tags-search' ,[\App\Http\Controllers\TagController::class ,'tagSearch']);
     Route::delete('/tag-destroy/{id}',[\App\Http\Controllers\TagController::class ,'destroy']);
 
     Route::post('/create-keyword',[\App\Http\Controllers\KeywordController::class ,'store']);
     Route::post('/fetch-keywords',[\App\Http\Controllers\KeywordController::class ,'fetchAll']);
+    Route::post('/keyword-search' ,[\App\Http\Controllers\KeywordController::class ,'keywordSearch']);
     Route::delete('/keyword-destroy/{id}',[\App\Http\Controllers\KeywordController::class ,'destroy']);
     
     Route::post('/create-post',[\App\Http\Controllers\PostController::class ,'store']);
@@ -76,6 +78,7 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::delete('/post-destroy/{id}',[\App\Http\Controllers\PostController::class ,'destroy']);
 
     Route::post('/upload-file',[\App\Http\Controllers\HomeController::class ,'uploadFile'])->name('media.store');
+    Route::post('/remove-uploaded-file',[\App\Http\Controllers\HomeController::class ,'deleteUploadedFile'])->name('media.destroy');
 
 });
 

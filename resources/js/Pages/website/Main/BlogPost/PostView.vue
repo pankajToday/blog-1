@@ -25,7 +25,7 @@
                         </div>
 
                         <div class="mt-2 ">
-                            <img :src="asset('project-assets/images/website/post-images/pxfuel (1).jpg')"
+                            <img :src="post.feature_image"
                                  alt="User Image" class="w-full rounded-md img-fluid" >
                         </div>
                         <div class="mt-2" v-html="post.article_content"></div>

@@ -52,4 +52,14 @@ class KeywordController extends Controller
         return response()->json([ 'data' => 'success' ]);
 
     }
+
+    function keywordSearch(Request $request){
+        return $tags = Keyword::when( request('search') ,  function ($q){
+            $q->where('name' ,'like', "%". request('search')."%" ) ;
+        })
+            ->orderBy('id','desc')
+            ->take(20)
+            ->get();
+
+    }
 }

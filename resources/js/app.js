@@ -7,9 +7,16 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 import Vapor from 'laravel-vapor';
 import {VaporAssetsMixin} from "./Mixins/VaporAssetsMixin.js";
+import {eventBus} from './events.js';
+
+import Vueform from '@vueform/vueform'
+import vueformConfig from './vueform.config.js'
+
+
 
 import jQ from 'jquery'
-window.$ = window.jQuery = jQ
+window.$ = window.jQuery = jQ;
+window.eventBus = eventBus;
 
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'My Blog';
@@ -24,6 +31,7 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue)
             .mixin(VaporAssetsMixin)
+            .use(Vueform, vueformConfig)
 
         return myApp.mount(el);
     },

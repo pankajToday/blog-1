@@ -27,6 +27,7 @@ class LeftBlockResource extends JsonResource
             'feature_image' => $this->feature_image? $this->feature_image:'zenBlog/img/post-landscape-1.jpg'  ,
             'post_url' => $this->post_url  ,
             'article_content' => $this->article_content  ,
+            'short_description' => $this->short_description  ,
             'status' => $this->status  ,
             'published_by' => $this->publishedByUser->uid  ,
             'published_at' => $this->published_at  ,

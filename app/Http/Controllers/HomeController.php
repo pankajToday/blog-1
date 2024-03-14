@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ContactUs;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\In;
 use Inertia\Inertia;
@@ -103,6 +104,21 @@ class HomeController extends Controller
         return response()->json([
             'status' => 'success','url'=>url($url.'/'.$fileName),
             'file_name'=>$fileName,'type'=>$type], 200);
+
+    }
+
+    function deleteUploadedFile(Request $request){
+       // $fileURL = "http://127.0.0.1:8000/project-assets/images/website/post-images/1710433042656.jpg";
+
+        $filePath = explode('/project-assets/',$request->fileURL);
+        $filePath = @$filePath[1]? public_path('project-assets/'.$filePath[1]):'';
+        if( File::exists( $filePath ) )
+        {
+            File::delete($filePath);
+            return  response()->json(['status' =>'success' ,'message' =>'File removed.' ]);
+        }
+        return response()->json(['status' =>'error' ,'message' =>'Unable to removed file.' ]);
+
 
     }
 

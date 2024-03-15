@@ -93,3 +93,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 
+
+/*** Demo Route  ***/
+Route::inertia('heat-map', 'HeatMap');
+

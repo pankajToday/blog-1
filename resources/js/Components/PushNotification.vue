@@ -1,48 +1,34 @@
 <template>
-    <HeadTag  />
-    <HeaderNav :title="headerTitle" />
-
-    <div class="w-full  md:mx-auto py-3 px-3 border-gray-100 border-2 rounder-full bg-white dark:bg-gray-900" style="margin-top: 100px" >
-        <div class="w-full flex justify-center items-center py-3 px-3 border-gray-100 border-2 rounder-full">
-            <div>
-                <h1 class="m-2"> Firebase Notification </h1>
-                <form  method="POST">
-                    <div class="form-group">
-                        <label>Title</label>
-                        <input v-model="nTitle" type="text" class="form-control" name="title" placeholder="Add Title">
+    <div  v-if="notifyBox" class="w-full fixed top-[0%] right-[1%] z-[999] flex justify-center p-8" style="" >
+        <div class="grid grid-cols-1  bg-indigo-500  rounded-lg shadow-lg text-white">
+            <div class="flex w-full mb-2 px-4 pt-4 items-center">
+                <div class="w-full">
+                    <h4 class="mb-2 font-bold">{{title}} Notification</h4>
+                    <p>Please subscribe to receive the newest updates. </p>
+                </div>
+                <div class="w-12">
+                    <div class="text-2xl p-2 bg-indigo-600 rounded-full">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
                     </div>
-                    <div class="form-group">
-                        <label>Body</label>
-                        <textarea v-model="nBody" class="form-control" name="body" placeholder="add your message"></textarea>
-                    </div>
-                    <button @click.prevent="sendNotification" type="submit" class="btn btn-primary m-2">Send Notification</button>
-
-                    <button @click.prevent="startFCM" type="submit" class="btn btn-danger m-2">Get Device Token</button>
-                </form>
+                </div>
             </div>
-
+            <div class="w-full mb-2 px-[10%] md:px-[20%] py-2">
+                <button @click="startFCM" class="mx-1 px-4 border border-gray-100 rounded-md bg-gray-100 text-black front-xl font-medium"> Accept</button>
+                <button @click="startFCM" class="mx-1 px-4 border border-red-400 rounded-md bg-red-600 text-white front-xl font-medium"> Cancel</button>
+            </div>
         </div>
+
     </div>
-
-
-    <FooterSection :title="headerTitle"/>
-
-
-    <!--<img class="w-[100%] h-[50%]" :src="asset('project-assets/img/bg-masthead.jpg')">-->
 </template>
 
 <script>
-    import  HeadTag from './website/Main/Component/Head.vue';
-    import  HeaderNav from './website/Main/Component/Header.vue';
-    import  TopSlider from './website/Main/Component/TopSliderSection.vue';
-    import  CategoryPostSection from './website/Main/Component/CategoryPost.vue';
-    import  FooterSection from './website/Main/Component/Footer.vue';
     import { toast } from 'vue3-toastify';
     import 'vue3-toastify/dist/index.css';
     import firebase from "firebase/compat/app";
     import "firebase/compat/messaging";
 
-  
     // Your web app's Firebase configuration
     const firebaseConfig = {
         apiKey: import.meta.env.VITE_API_KEY ,
@@ -58,37 +44,37 @@
     firebase.initializeApp(firebaseConfig);
     const messaging = firebase.messaging();
 
-
     export default {
-        name: "MainPage",
-        components: {HeadTag ,HeaderNav,TopSlider,CategoryPostSection,FooterSection},
+        name: "PushNotification.vue",
         props:['title'],
         data(){
             return{
-                // authUser:this.$page.props.auth.user,
+                notifyBox:true,
                 headerTitle :'Tech Blog',
                 nBody:'',
                 nTitle:'',
                 currentToken:"",
                 attempt:0,
+
             }
         },
         methods:{
             startFCM() {
                 messaging.getToken({ vapidKey:import.meta.env.VITE_VAPIKEY })
                     .then((currentToken) => {
-                    if (currentToken) {
-                        axios.post('/api/fmc-save-token', {
-                            token: currentToken
-                        }).then((res) => {
-                            this.currentToken =currentToken;
-                            console.log('response done')
-                        }).catch(function (err) {
-                            console.log('User Chat Token Error', err);
-                        });
-                    }
+                        if (currentToken) {
+                            axios.post('/api/fmc-save-token', {
+                                token: currentToken
+                            }).then((res) => {
+                                this.currentToken =currentToken;
+                                this.notifyBox =false;
+                                console.log('response done')
+                            }).catch(function (err) {
+                                console.log('User Chat Token Error', err);
+                            });
+                        }
 
-                }).catch(function (error) {
+                    }).catch(function (error) {
                     toast.success("Unable to get access token. Try again! " )
                     if(this.attempt < 3 )
                     {
@@ -139,21 +125,19 @@
                 })
             },
 
-
-
         },
         created(){
             this.showNotification();
             this.requestPermission();
 
             eventBus.$on('editorContents', ()=> {
-              console.log('accept') ;
-              this.startFCM();
+                console.log('accept') ;
+                this.startFCM();
             });
         }
+
     }
 </script>
-
 
 <style scoped>
 

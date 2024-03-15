@@ -126,6 +126,8 @@
                 })
             },
 
+
+
         },
         created(){
             this.fetchRecentPost();
@@ -133,9 +135,14 @@
         }
 
     }
+
+   /* https://tailwindtemplates.io/templates?theme=lexicon*/
 </script>
 
 
 <style scoped  lang="scss" >
+    #notifyBox{
+        position: fixed; z-index: 999; top: 0%; right: 40%;
+    }
 
 </style>

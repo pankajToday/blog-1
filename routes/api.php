@@ -29,6 +29,8 @@ Route::post('login' , [\App\Http\Controllers\AuthController::class ,'login']);//
 Route::post('send-notification', [FmNotificationController::class, 'sendNotification'])->name('send.notification');
 Route::post('/fmc-save-token', [App\Http\Controllers\FmNotificationController::class, 'saveToken'])->name('save-token');
 
+
+
 // Home page API......................
 // Prefix -> Home only for all type of Home page API. that will be available for all users.
 Route::group(['prefix' => 'home'],function ($q){
@@ -87,3 +89,7 @@ Route::middleware('auth:sanctum')->group( function () {
 Route::get('/fetch-user-info',[\App\Http\Controllers\MediumController::class ,'fetchUserInfo'])->name('medium.fetch-user');
 Route::post('/fetch-mediun-posts',[\App\Http\Controllers\MediumController::class ,'fetchPost'])->name('medium.fetch-post');
 Route::get('/store-post',[\App\Http\Controllers\MediumController::class ,'storePost'])->name('medium.store-post');
+
+
+/**----- Demo Routes  ---  **/
+Route::post('/fetch-geo-location',[\App\Http\Controllers\DemoController::class ,'fetchGeoLocation']);

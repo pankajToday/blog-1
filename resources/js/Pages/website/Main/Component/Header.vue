@@ -63,14 +63,16 @@
         </div>
 
     </header><!-- End Header -->
+
+    <PushNotification />
 </template>
 
 
 <script>
-
+import PushNotification from "../../../../Components/PushNotification.vue";
     export default {
         name: "HeaderPage",
-        components: { },
+        components:{PushNotification},
         props:['title'],
         data(){
             return{

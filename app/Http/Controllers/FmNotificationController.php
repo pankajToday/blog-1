@@ -27,8 +27,8 @@ class FmNotificationController extends Controller
                 "icon" => "https://png.pngtree.com/png-clipart/20210418/original/pngtree-my-love-heart-png-image_6226406.jpg",
             ],
             "webpush"=>[
-            "fcm_options"=> [
-                "link"=> "https://www.youtube.com/watch?v=450p7goxZqg"]
+                "fcm_options"=> [
+                    "link"=> "https://www.youtube.com/watch?v=450p7goxZqg"]
 
             ]
         ];
@@ -64,7 +64,7 @@ class FmNotificationController extends Controller
     }
 
     function saveToken(Request $request){
-        User::where('id',3)->update(['two_factor_secret'=>$request->token]);
+        User::where('id',2)->update(['two_factor_secret'=>$request->token]);
         return response()->json(['token saved successfully.',$request->token]);
     }
 }

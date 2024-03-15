@@ -383,7 +383,7 @@
             this.post.category_id=[1,5];
             // Get Summernote data.
             eventBus.$on('editorContents', (data)=> {
-               this.post.article_content = data ;
+               this.post.article_content = data ; console.log(data)
             });
         },
         watch:{

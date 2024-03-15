@@ -3,8 +3,6 @@
 </template>
 
 <script>
-    //import {eventBus} from '../../events.js';
-
     export default {
         name: "Summernote Editor",
         props:['editorContent'],

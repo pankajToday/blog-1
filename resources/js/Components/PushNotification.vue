@@ -1,5 +1,5 @@
 <template>
-    <div  v-if="notifyBox" class="w-full fixed top-[0%] right-[1%] z-[999] flex justify-center p-8" style="" >
+    <div  v-if="is_notification_allowed === 2 " class="w-full fixed top-[0%] right-[1%] z-[999] flex justify-center p-8" style="" >
         <div class="grid grid-cols-1  bg-indigo-500  rounded-lg shadow-lg text-white">
             <div class="flex w-full mb-2 px-4 pt-4 items-center">
                 <div class="w-full">
@@ -49,12 +49,13 @@
         props:['title'],
         data(){
             return{
-                notifyBox:true,
+                authUser : this.$page.props.auth.user,
                 headerTitle :'Tech Blog',
                 nBody:'',
                 nTitle:'',
-                currentToken:"",
                 attempt:0,
+                visitor_device_id:"",
+                is_notification_allowed:0,
 
             }
         },
@@ -64,10 +65,11 @@
                     .then((currentToken) => {
                         if (currentToken) {
                             axios.post('/api/fmc-save-token', {
-                                token: currentToken
+                                token: currentToken,
+                                v_device_id :this.visitor_device_id,
+                                is_allowed : this.is_notification_allowed,
+
                             }).then((res) => {
-                                this.currentToken =currentToken;
-                                this.notifyBox =false;
                                 console.log('response done')
                             }).catch(function (err) {
                                 console.log('User Chat Token Error', err);
@@ -116,24 +118,51 @@
             requestPermission() {
                 Notification.requestPermission().then((permission) => {
                     if (permission === 'granted') {
-                        console.log('Notification permission granted.');
+                        this.is_notification_allowed =1;
+                        console.log('Notification permission granted');
+                        this.startFCM();
                         return ;
-
                     }
-                    toast.error('Please allow notification!')
+                    else if( permission === 'denied' ){
+                        this.is_notification_allowed =3;
+                    }
+                    else{
+                        this.is_notification_allowed =2;
+                    }
+                    console.log('permission' , permission )
+                    toast.info('Please allow notification!')
 
                 })
             },
+            getMachineId() {
+                this.visitor_device_id = localStorage.getItem('MachineId');
+
+                if ( !this.visitor_device_id ) {
+                    this.visitor_device_id = crypto.randomUUID();
+                    localStorage.setItem('MachineId', this.visitor_device_id );
+
+                    let payload={
+                        device_id :  this.visitor_device_id,
+                        extra : ''
+                    };
+                    axios.post('/api/device-log',payload ).then( async (response)=>{
+                        await this.requestPermission();
+                    });
+                }
+                let payload={
+                    device_id :  this.visitor_device_id,
+                    extra : ''
+                };
+                axios.post('/api/device-log',payload ).then( async (response)=>{
+                    await this.requestPermission();
+                });
+            }
 
         },
         created(){
+            this.getMachineId();
             this.showNotification();
-            this.requestPermission();
 
-            eventBus.$on('editorContents', ()=> {
-                console.log('accept') ;
-                this.startFCM();
-            });
         }
 
     }

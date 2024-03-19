@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostCreateEvent;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class DemoController extends Controller
@@ -174,5 +176,15 @@ class DemoController extends Controller
                   [ 'title' => "Lome",  'latitude' => '6.1228 ', 'longitude' => '1.2255' ] ,
                   [ 'title' => "Tunis",  'latitude' => '36.8117 ', 'longitude' => '10.1761' ]
         ];
+    }
+
+
+    function testEvent(){
+
+        // Trigger the event
+        $post = Post::first() ;
+        event(new PostCreateEvent( $post ));
+
+        return "Event Fired!";
     }
 }

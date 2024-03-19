@@ -97,3 +97,5 @@ Route::group(['middleware' => 'auth'], function () {
 /*** Demo Route  ***/
 Route::inertia('heat-map', 'HeatMap');
 
+Route::get('/test-event', [\App\Http\Controllers\DemoController::class ,'testEvent']);
+

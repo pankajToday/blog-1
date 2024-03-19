@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class FmNotificationController extends Controller
@@ -13,12 +15,16 @@ class FmNotificationController extends Controller
         return Inertia::render('FMCNotification');
     }
 
-
     function sendNotification(Request $request){
-        $FcmToken = User::whereNotNull('two_factor_secret')->pluck('two_factor_secret')->all();
         $serverKey = env("VITE_FCM_SERVER_KEY");
-        $url = 'https://fcm.googleapis.com/fcm/send';
+        $FcmToken=[];
 
+        $FcmToken[] = DB::table('device_logs')->whereNotNull('notify_device_id')->select('notify_device_id')->pluck('notify_device_id')->all();
+        $FcmToken[] = User::whereNotNull('notify_device_id')->pluck('notify_device_id')->all();
+        $FcmToken = collect($FcmToken )->flatten(1)->unique()->values() ;
+
+
+        $url = 'https://fcm.googleapis.com/fcm/send';
         $data = [
             "registration_ids" => $FcmToken,
             "notification" => [
@@ -64,7 +70,35 @@ class FmNotificationController extends Controller
     }
 
     function saveToken(Request $request){
-        User::where('id',2)->update(['two_factor_secret'=>$request->token]);
-        return response()->json(['token saved successfully.',$request->token]);
+        $authUser =  Auth::user();
+        if( !$authUser )
+        {
+            DB::table('device_logs')->where('device_id', $request->v_device_id)->update([
+                'notify_device_id' => $request->token
+            ]);
+        }
+        else{
+
+            DB::table('device_logs')->where('device_id', $request->device_id)->delete();
+            User::where('id', $authUser->id )->update(['notify_device_id'=>$request->token]);
+        }
+        return response()->json(['token saved successfully.']);
     }
+
+    function deviceLog(Request $request){
+       $device = DB::table('device_logs')->where('device_id', $request->device_id)->first();
+
+       if( ! $device ){
+           DB::table('device_logs')->updateOrInsert([
+               'device_id' =>$request->device_id,
+               'extra' =>$request->extra
+           ]);
+
+           return response()->json([ 'data'=> '' , 'message' => 'device added.' ,'status'=>200]);
+       }
+
+        return response()->json([ 'data'=> '' , 'message' => '' , 'status' =>503]);
+    }
+
+
 }

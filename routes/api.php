@@ -28,7 +28,7 @@ Route::post('login' , [\App\Http\Controllers\AuthController::class ,'login']);//
 // Firebase Notification.
 Route::post('send-notification', [FmNotificationController::class, 'sendNotification'])->name('send.notification');
 Route::post('/fmc-save-token', [App\Http\Controllers\FmNotificationController::class, 'saveToken'])->name('save-token');
-
+Route::post('/device-log', [App\Http\Controllers\FmNotificationController::class, 'deviceLog']);
 
 
 // Home page API......................

@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notification_subscribers', function (Blueprint $table) {
+        Schema::create('device_logs', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->string('email',80)->nullable();
-            $table->text('device_id')->nullable();
-            $table->boolean('status')->default(0);
+            $table->string('device_id');
+            $table->text('extra')->nullable();
+            $table->text('notify_device_id')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notification_subscribers');
+        Schema::dropIfExists('device_logs');
     }
 };

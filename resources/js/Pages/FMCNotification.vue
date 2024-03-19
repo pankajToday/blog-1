@@ -113,7 +113,7 @@
                     if( response.data.failure === 1 ){
                         toast.warn("Notification Failed. <br /> Id :"+response.data.multicast_id )
                     }
-                })
+                });
             },
             showNotification(){
                 messaging.onMessage( (payload)=> {
@@ -128,9 +128,21 @@
                 });
             },
             requestPermission() {
+                toast.success("Please Allow our notification!" );
                 Notification.requestPermission().then((permission) => {
                     if (permission === 'granted') {
-                        console.log('Notification permission granted.');
+
+                        let payload ={
+                            data:Notification,
+
+                        };
+                        axios.post('/api/fmc-granted',payload ).then((response)=>{
+                            if( response.data.success === 200 ){
+                                toast.success("Notification permission granted." );
+                            }
+                        });
+
+                        console.log('Notification permission granted.u ',Notification);
                         return ;
 
                     }
@@ -138,6 +150,24 @@
 
                 })
             },
+            getMachineId() {
+                let machineId = localStorage.getItem('MachineId');
+                if (!machineId) {
+                    machineId = crypto.randomUUID();
+                    localStorage.setItem('MachineId', machineId);
+
+                    let payload={
+                        device_id :  machineId,
+                        extra : ''
+                    };
+                    axios.post('/api/device-log',payload ).then((response)=>{
+                       //
+                    });
+
+                }
+                toast.error('Please allow notification!')
+                return machineId;
+            }
 
 
 
@@ -145,6 +175,7 @@
         created(){
             this.showNotification();
             this.requestPermission();
+
 
             eventBus.$on('editorContents', ()=> {
               console.log('accept') ;

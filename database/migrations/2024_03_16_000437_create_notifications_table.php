@@ -15,8 +15,12 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('post_id')->nullable();
             $table->unsignedBigInteger('notification_subscribers_id')->nullable();
-            $table->boolean('status')->default(0);
+            $table->enum('status',['read', 'sent', 'ignored'])->nullable();
             $table->timestamps();
+
+            $table->foreign('post_id')->on('posts')->references('id')->cascadeOnDelete();
+            $table->foreign('notification_subscribers_id')->on('users')->references('id')->cascadeOnDelete();
+
         });
     }
 

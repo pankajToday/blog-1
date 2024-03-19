@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostCreateEvent;
 use App\Http\Resources\Dashboard\PostResource;
 use App\Http\Resources\PostViewResource;
 use App\Models\Post;
@@ -58,34 +59,41 @@ class PostController extends Controller
 
     public function store( Request $request ){
         $userId = Auth::id();
-        $post = new  Post();
 
-        $post->title = $request->title;
-        $post->category_id   = 1;//$request->category_id ;
-        $post->uid   = rand(100,999).date('ymdis') ;
-        $post->caption   = $request->caption ;
-        $post->short_description   =  $request->short_description ;
-        $post->slug   = Str::slug($request->title );
-        $post->seo_url   =  Str::slug($request->title ) ;
-        $post->post_image   =  $request->feature_image ;
-        $post->post_image_name = $request->feature_image_name ;
-        $post->feature_image   = $request->feature_image ;
-        $post->feature_image_name   = $request->feature_image_name ;
-        $post->post_url   = Str::slug($request->title ) ;
-        $post->article_content   = $request->article_content ;
-        $post->status   = 1 ;
-        $post->posted_by   = $userId ;
-        $post->publish_status   = 'published' ;
-        $post->published_at   = date('Y-m-d H:i') ;
-        $post->published_by   = $userId ;
+        try{
+            $post = new  Post();
 
-        $post->save() ;
+            $post->title = $request->title;
+            $post->category_id   = 1;//$request->category_id ;
+            $post->uid   = rand(100,999).date('ymdis') ;
+            $post->caption   = $request->caption ;
+            $post->short_description   =  $request->short_description ;
+            $post->slug   = Str::slug($request->title );
+            $post->seo_url   =  Str::slug($request->title ) ;
+            $post->post_image   =  $request->feature_image ;
+            $post->post_image_name = $request->feature_image_name ;
+            $post->feature_image   = $request->feature_image ;
+            $post->feature_image_name   = $request->feature_image_name ;
+            $post->post_url   = Str::slug($request->title ) ;
+            $post->article_content   = $request->article_content ;
+            $post->status   = 1 ;
+            $post->posted_by   = $userId ;
+            $post->publish_status   = 'published' ;
+            $post->published_at   = date('Y-m-d H:i') ;
+            $post->published_by   = $userId ;
 
-        $post->postTags()->sync($request->tags);
-        $post->postKeywords()->sync($request->keywords);
+            $post->save() ;
 
-         return response()->json(['data' => 'post saved' ,'status'=>'success']);
+            $post->postTags()->sync($request->tags);
+            $post->postKeywords()->sync($request->keywords);
 
+            event(new PostCreateEvent( $post ));
+
+            return response()->json(['data' => 'post saved' ,'status'=>'success']);
+        }
+        catch ( \Exception $exception ){
+            return response()->json(['data' => 'unable to send post' ,'status'=>'error']);
+        }
 
     }
 

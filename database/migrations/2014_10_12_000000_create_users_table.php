@@ -20,14 +20,16 @@ return new class extends Migration
             $table->string('email',80)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('mobile');
+            $table->string('mobile',15);
             $table->string('address')->nullable();
             $table->string('user_img')->nullable()->default('https://www.pngitem.com/pimgs/m/581-5813504_avatar-dummy-png-transparent-png.png');
             $table->boolean('status');
+            $table->text('notify_device_id')->nullable();
+            $table->boolean('is_notify_allowed' )->default(0);
             $table->dateTime('last_login')->nullable();
             $table->ipAddress()->nullable();
             $table->boolean('is_social_login')->default(0)->nullable();
-            $table->string('social')->nullable();
+            $table->string('social',35)->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

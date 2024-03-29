@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import {eventBus} from "../../../models/events.js";
+import {eventBus} from "../../events.js";
 
 export default {
     name: "Pagination",

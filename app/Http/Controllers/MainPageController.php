@@ -19,19 +19,10 @@ class MainPageController extends Controller
         {
             $currentHur = Carbon::now()->format('Y-m-d H:i');
             $last10Hur = Carbon::parse($currentHur)->subMinutes(600) ->format('Y-m-d H:i');
-          //  return [ $currentHur , $last10Hur];
             $postLeftBlock =  Post::whereBetween('updated_at' , [$last10Hur , $currentHur])->orderby('id','desc')->limit($random)->get();
         }
-        elseif ($side === 'trending' ){
-            $currentDay = Carbon::now()->format('Y-m-d H:i');
-            $last3Days = Carbon::parse($currentDay)->subDay(3) ->format('Y-m-d H:i');
-
-            $postLeftBlock =  Post::wherebetween('created_at' ,[$last3Days , $currentDay])->inRandomOrder()->limit($random)->get();
-        }
-        elseif ( $side === 'weekend' ){
-            $startOfWeek = Carbon::now()->startOfWeek()->format('Y-m-d H:i');
-            $endOfWeek = Carbon::now()->endOfWeek()->format('Y-m-d H:i');
-            $postLeftBlock =  Post::whereBetween('updated_at' , [ $startOfWeek , $endOfWeek ])->orderby('id','desc')->limit($random)->get();
+        elseif ($side === 'all' ){
+            $postLeftBlock =  Post::orderBy('updated_at','desc')->paginate(3);
         }
         elseif ( $side === 'side-trending'){
             $postLeftBlock =  Post::inRandomOrder()->limit($random)->get();

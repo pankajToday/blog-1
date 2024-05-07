@@ -10,6 +10,9 @@ export default defineConfig({
             refresh:true,
         }),
 ],
+    define: {
+
+    }
 });
 
 //  'resources/js/app.js',

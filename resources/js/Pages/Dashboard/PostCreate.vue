@@ -16,6 +16,20 @@
                         </div>
 
                         <div class="grid gap-6 mb-6 px-2 py-2 md:grid-cols-1">
+                            <div   class="">
+                                <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+
+                                <Multiselect
+                                        v-model="post.category_id"
+                                        placeholder="Select Category"
+                                        :options="categories"
+                                />
+
+                                <p v-if="errors && errors.category_id"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
+                                    {{   errors.post.category_id[0]}}
+                                </p>
+                            </div>
+
                             <div class="">
                                 <label for="post_title" class="w-full py-2 px-2 rounded-md text-sm text-gray-900 border-gray-300">Title <span class="text-red-500 px-2 text-3 font-bold ">*</span> </label>
                                 <input v-model="post.title"  type="text" id="post_title" class="w-full py-2 px-2 rounded-md text-sm text-gray-900 border-gray-300" placeholder="Title" />
@@ -86,7 +100,7 @@
                             <div   class="">
                                 <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tags</label>
 
-                                <Multiselect
+                               <!-- <Multiselect
                                         mode="tags"
                                         v-model="post.tags"
                                         placeholder="search tags"
@@ -99,7 +113,15 @@
                                         :options="async (q)=>{
                                            await fetchTags(q); return await  tagList;
                                           }"
-                                />
+                                />-->
+                                <Multiselect
+                                        :searchable="true"
+                                        :multiple="true"
+                                        :taggable="true"
+                                        @search-change="debounceTags"
+                                        placeholder="Type to search or add tag"
+                                        v-model="post.tags"
+                                        v-bind="tagListSelect"></Multiselect>
 
                                 <p v-if="errors && errors.tags"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
                                     {{   errors.post.tags[0]}}
@@ -109,20 +131,23 @@
                             <div   class="">
                                 <label  class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Keywords</label>
 
-                                <Multiselect
-                                        mode="tags"
+                               <!-- <Multiselect
                                         v-model="post.keywords"
-                                        placeholder="search keywords"
-                                        :close-on-select="false"
-                                        :filter-results="false"
-                                        :min-chars="3"
-                                        :resolve-on-load="false"
-                                        :delay="0"
                                         :searchable="true"
-                                        :options="async (q)=>{
-                                           await fetchkeywords(q); return await  keywordList;
-                                          }"
-                                />
+                                        :multiple="true"
+                                        :taggable="true"
+                                        @search-change="debouncekeywords"
+                                        placeholder="Type to search or add tag"
+                                />-->
+                                <Multiselect
+                                        v-model="post.keywords"
+                                        v-bind="keywordSelect"
+                                        :searchable="true"
+                                        :multiple="true"
+                                        :taggable="true"
+                                        @search-change="debouncekeywords"
+                                        placeholder="Type to search or add tag"
+                                ></Multiselect>
 
                                 <p v-if="errors && errors.keywords"  class="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">
                                     {{   errors.post.keywords[0]}}
@@ -194,6 +219,22 @@
                 isDrawerOpen: false,
                 tagList:[],
                 keywordList:[],
+                tagListSelect: {
+                    mode: 'tags',
+                    value: [],
+                    closeOnSelect: false,
+                    options: [],
+                    searchable: true,
+
+                },
+                keywordSelect: {
+                    mode: 'tags',
+                    value: [],
+                    closeOnSelect: false,
+                    options: [],
+                    searchable: true,
+                    createOption: true
+                },
 
             }
         },
@@ -328,29 +369,36 @@
                 });
             },
             async fetchTags(query){
-               let payload={ search :query};
-               this.tagList =[];
-               await axios.post('/api/tags-search', payload).then( (resource) =>{
-                  if( resource.status === 200 ){
-                      resource.data.forEach((d,i)=>{
-                          this.tagList[i]={label:d.name,value:d.id};
-                      });
-                      return this.tagList;
-                  }
-              }).catch((error)=>{
+                let payload={ search :query};
+                this.tagList =[];
+                if(query){
+                    this.tagListSelect.options=[];
+                }
+                await axios.post('/api/tags-search', payload).then( (resource) =>{
+                    if( resource.status === 200 ){
+                        resource.data.forEach((d,i)=>{
+                            this.tagList[i]={label:d.name,value:d.id};
+                        });
+                        this.tagListSelect.options =this.tagList;
+                    }
+                }).catch((error)=>{
 
-              })
+                })
 
             },
             async fetchkeywords(query){
                 let payload={ search :query};
                 this.keywordList =[];
+
+                if(query){
+                    this.keywordSelect.options=[];
+                }
                 await axios.post('/api/keyword-search', payload).then( (resource) =>{
                     if( resource.status === 200 ){
                         resource.data.forEach((d,i)=>{
                             this.keywordList[i]={label:d.name,value:d.id};
                         });
-                        return this.keywordList;
+                        this.keywordSelect.options = this.keywordList;
                     }
                 }).catch((error)=>{
 
@@ -376,6 +424,16 @@
                     this.loading =false;
                 })
             },
+            debouncekeywords: _.debounce(function (e) {
+                if(e){
+                    this.fetchkeywords(e);
+                }
+            }, 1000),
+            debounceTags: _.debounce(function (e) {
+                if(e){
+                    this.fetchTags(e);
+                }
+            }, 1000),
 
 
         },

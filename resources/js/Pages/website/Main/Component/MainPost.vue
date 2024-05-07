@@ -53,7 +53,9 @@
                               </div>
                               <div v-else class="px-2 py-2 text-xs">No post found!</div>
 
-                              <pagination v-if="allPosts && allPosts.data && allPosts.data.length" :meta="allPosts.meta" :links="allPosts.links" location="posts"></pagination>
+
+                              <pagination v-if="allPosts && allPosts.data && allPosts.data.length"
+                                          :meta="allPosts.meta" :links="allPosts.links" location="posts"></pagination>
                           </div>
                           <div v-else class="px-2 py-2 text-xs">Loading post....</div>
 
@@ -76,7 +78,7 @@
 
 <script>
     import TrendingPostComp from "./TrendingPost.vue";
-    import Pagination from "@/Components/Table/Pagination.vue";
+    import Pagination from "../../../../Components/Pagination.vue";
     import {eventBus} from "../../../../events.js";
 
 
@@ -92,7 +94,7 @@
         }),
         methods:{
             allPost(){
-                const payload ={page:this.allPage}
+                const payload ={page:this.page}
                 axios.post('/api/home/post/all/3', payload).then(response => {
                     if(response.status === 200) {
                         this.allPosts = response.data;

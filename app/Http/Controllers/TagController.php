@@ -60,7 +60,7 @@ class TagController extends Controller
            $q->where('name' ,'like', "%". request('search')."%" ) ;
        })
            ->orderBy('id','desc')
-           ->take(20)
+           ->take(5)
            ->get();
 
     }

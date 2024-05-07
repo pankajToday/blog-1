@@ -93,3 +93,7 @@ Route::get('/store-post',[\App\Http\Controllers\MediumController::class ,'storeP
 
 /**----- Demo Routes  ---  **/
 Route::post('/fetch-geo-location',[\App\Http\Controllers\DemoController::class ,'fetchGeoLocation']);
+
+
+/**----- Ads Test Routes  ---  **/
+Route::post('/ads-compare-list',[\App\Http\Controllers\AdsController::class ,'compareList']);

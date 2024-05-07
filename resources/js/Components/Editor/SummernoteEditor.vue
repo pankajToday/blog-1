@@ -62,12 +62,16 @@
 
                 $(".note-editable").css('textAlign','left');
                 $(".note-editable").css('min-height','200px');
+
             },1000);
         },
         setup(){
-            let script1 = document.createElement('script');
+
+
+            /** Do not include this Jquery script. we have already installed Jquery and added in app.ja**/
+          /*  let script1 = document.createElement('script');
             script1.setAttribute('src', 'https://code.jquery.com/jquery-3.4.1.slim.min.js')
-            document.head.appendChild(script1)
+            document.head.appendChild(script1)*/
 
             const script2 = document.createElement('script');
             script2.setAttribute('src', 'https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js')
@@ -77,10 +81,12 @@
             styleFile1.setAttribute('href', 'https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css')
             styleFile1.setAttribute('rel', 'stylesheet')
             document.head.appendChild(styleFile1)
-
         },
 
+
     }
+
+
 </script>
 
 <style scoped>

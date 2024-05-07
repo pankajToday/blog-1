@@ -71,12 +71,9 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::get('/tags/{tag}',[\App\Http\Controllers\TagController::class ,'index'])->name('dashboard.tags');
     Route::get('/categories/{category}',[\App\Http\Controllers\CategoryController::class ,'index'])->name('dashboard.category');
     Route::get('/keywords/{keyword}',[\App\Http\Controllers\KeywordController::class ,'index'])->name('dashboard.keyword');
-
-
-
 });
 
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth:sanctum'], function () {
     //Protected Routes
     Route::inertia('categories', 'Dashboard/Category');
     Route::inertia('posts', 'Dashboard/Posts');
@@ -89,13 +86,17 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/post-create', [\App\Http\Controllers\PostController::class ,'create']);
     //post routes
-    Route::get('/post/{slug}/edit',[\App\Http\Controllers\PostController::class ,'edit'])->name('post.show');
+    Route::get('/post/{slug}/edit',[\App\Http\Controllers\PostController::class ,'edit'])->name('post.edit');
 
 });
 
 
 /*** Demo Route  ***/
 Route::inertia('heat-map', 'HeatMap');
-
+Route::inertia('vue-direct-upload', 'VueJsDirectUpload');
 Route::get('/test-event', [\App\Http\Controllers\DemoController::class ,'testEvent']);
+
+// test
+
+Route::get('/test-ads', [\App\Http\Controllers\AdsController::class ,'adsIndex']);
 

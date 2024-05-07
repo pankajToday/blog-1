@@ -6,6 +6,7 @@ use App\Events\PostCreateEvent;
 use App\Http\Resources\Dashboard\PostResource;
 use App\Http\Resources\PostViewResource;
 use App\Models\Post;
+use hollodotme\FastCGI\Requests\PostRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -97,8 +98,9 @@ class PostController extends Controller
 
     }
 
-    public function edit( Request $request ,$slug ){return 4;
-        return  Inertia::render('Dashboard/PostEdit',['slug'=>$slug]);
+    public function edit( Request $request ,$slug ){
+        $post = new PostResource(  Post::where('slug' , $slug )->first() );
+        return  Inertia::render('Dashboard/PostEdit',['slug'=>$slug,'from_post'=>$post]);
     }
 
     function  fetchPost( $slug ){

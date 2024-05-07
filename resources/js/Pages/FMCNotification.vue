@@ -88,7 +88,7 @@
                         });
                     }
 
-                }).catch(function (error) {
+                }).catch( (error) =>{
                     toast.success("Unable to get access token. Try again! " )
                     if(this.attempt < 3 )
                     {
@@ -136,11 +136,11 @@
                             data:Notification,
 
                         };
-                        axios.post('/api/fmc-granted',payload ).then((response)=>{
+                       /* axios.post('/api/fmc-granted',payload ).then((response)=>{
                             if( response.data.success === 200 ){
                                 toast.success("Notification permission granted." );
                             }
-                        });
+                        });*/
 
                         console.log('Notification permission granted.u ',Notification);
                         return ;

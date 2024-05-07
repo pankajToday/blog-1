@@ -21,7 +21,6 @@
                                     <input v-model="search" type="text" id="table-search" class="block p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg w-80 bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search Post">
                                 </div>
                             </div>
-
                             <a  v-if="authUser.role_id !== 3" href="/post-create" target="_blank" type="button"
                                     class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Add New</a>
                         </div>
@@ -53,7 +52,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                               <tr v-for="( post ,index ) in posts" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                               <tr v-for="( post ,index ) in posts.data" class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td class="w-4 p-4">
                                         {{index+1}}
                                     </td>
@@ -74,13 +73,16 @@
                                        {{post.published_at}}
                                    </th>
                                     <td  v-if="authUser.role_id !== 3" class="px-6 py-4">
-                                        <a href="#" @click="editTag(post.id)" class="font-medium text-blue-600 dark:text-blue-500 mr-2 hover:underline">Edit</a>
-                                        <a href="#" @click="deleteTag(post.id)" class="font-medium text-blue-600 dark:text-red-500 ml-2 hover:underline">Delete</a>
+                                        <a href="#" @click="editPost(post.slug)" class="font-medium text-blue-600 dark:text-blue-500 mr-2 hover:underline">Edit</a>
+                                        <a href="#" @click="deletePost(post.id)" class="font-medium text-blue-600 dark:text-red-500 ml-2 hover:underline">Delete</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+
+                    <pagination v-if="posts && posts.data && posts.data.length"
+                                :meta="posts.meta" :links="posts.links" location="posts"></pagination>
 
                 </div>
             </div>
@@ -102,17 +104,19 @@
     import { toast } from 'vue3-toastify';
     import 'vue3-toastify/dist/index.css';
 
-
+    import {eventBus} from "../../events.js";
+    import Pagination from "../../Components/Pagination.vue";
+    import Spiner from "../../Components/Table/NitsSpinner.vue";
 
     export default {
         name: "posts",
-        components: { Link , layout , Footer ,DefaultSkeletons,GridLayout,Breadcrumb },
+        components: { Link , layout , Footer ,DefaultSkeletons,GridLayout,Breadcrumb,Pagination},
         data(){
             return{
                 addNew :false ,
                 editTagFlag:false ,
                 errors:[],
-                title : 'My Blog Admin v.1',
+                title : 'Tech Blog v.1',
                 authUser : this.$page.props.auth.user,
                 skeletonName : "default" ,
                 loading : false ,
@@ -125,13 +129,15 @@
         },
         methods:{
             fetchPosts(){
+                this.loading= true;
                 axios.post('api/fetch-posts',{search:this.search,page:this.page}).then( (response) =>{
                     if( response.status ){
-                       this.posts =  response.data.data;
+                       this.posts =  response.data;
+                        this.loading= false;
                     }
                 });
             },
-            deleteTag(id){
+            deletePost(id){
                 Swal.fire({
                     title: 'Do you want to save the changes?',
                     showCancelButton: true,
@@ -149,8 +155,8 @@
                     }
                 })
             },
-            editTag(id){
-              return this.$inertia.get('/post/'+id);         
+            editPost(slug){
+              return this.$inertia.get('/post/'+slug+'/edit');
               },
             reset(){
                 this.category = { name:'',id:'',status:false } ;
@@ -202,6 +208,11 @@
         },
         created(){
             this.fetchPosts();
+
+            eventBus.$on('posts_pagination', (data) => { console.log(data)
+                this.page = data
+                this.fetchPosts();
+            })
         },
         watch:{
             'search' : {
